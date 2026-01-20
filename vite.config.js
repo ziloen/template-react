@@ -18,7 +18,7 @@ export default defineConfig(({ command, mode }) => {
   const IS_PROD = !IS_DEV
   const IS_BUILD = command === 'build'
 
-  const target = '> 0.5%, last 2 versions, Firefox ESR, not dead'
+  const target = 'baseline widely available with downstream'
 
   return {
     base: process.env.BASE_URL || '/',
