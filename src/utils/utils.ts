@@ -3,12 +3,14 @@ import { twMerge } from 'tailwind-merge'
 import type { LoaderFunction, RouteObject } from 'react-router'
 import type { ComponentType } from 'react'
 
+/*#__NO_SIDE_EFFECTS__*/
 export function cn(
   ...classLists: (string | number | bigint | null | boolean | undefined)[]
 ): string {
   return twMerge(clsx(...classLists))
 }
 
+/*#__NO_SIDE_EFFECTS__*/
 function HydrateFallback() {
   return null
 }

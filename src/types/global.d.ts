@@ -135,3 +135,10 @@ interface Uint8ArrayConstructor {
    */
   fromHex(string: string): Uint8Array<ArrayBuffer>
 }
+
+interface ReadableStream<R = any> {
+  /**
+   * https://caniuse.com/mdn-api_readablestream_--asynciterator
+   */
+  [Symbol.asyncIterator]?(): AsyncIterableIterator<R>
+}
