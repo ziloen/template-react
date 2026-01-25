@@ -109,7 +109,9 @@ function Header() {
 
   return (
     <div className="flex w-full items-center justify-end gap-2 px-2 py-2">
-      <span>{timeString}</span>
+      <time dateTime={new Date(APP_BUILD_TIME).toISOString()}>
+        {timeString}
+      </time>
       <span className="opacity-50">{APP_BUILD_COMMIT}</span>
       <LanguageSelect />
       <ThemeToggleButton />
@@ -117,20 +119,27 @@ function Header() {
   )
 }
 
-function getRelativeString(date: string, language: string) {
+function getRelativeString(date: string, language: string): string {
   const dateTime = Temporal.Instant.from(date).toZonedDateTimeISO('UTC')
   const now = Temporal.Now.zonedDateTimeISO('UTC')
   const diff = dateTime.since(now, {
     largestUnit: 'years',
-    smallestUnit: 'minutes',
+    smallestUnit: 'seconds',
   })
 
   const formatter = new Intl.RelativeTimeFormat(language, {
     style: 'narrow',
-    numeric: 'always',
+    numeric: 'auto',
   })
 
-  const units = ['years', 'months', 'days', 'hours', 'minutes'] as const
+  const units = [
+    'years',
+    'months',
+    'days',
+    'hours',
+    'minutes',
+    'seconds',
+  ] as const
 
   for (const unit of units) {
     if (diff[unit] !== 0) {
