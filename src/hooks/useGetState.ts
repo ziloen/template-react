@@ -1,8 +1,11 @@
 import { useCallback, useRef, useState } from 'react'
 
 /**
+ * Provides a getState function alongside state and setState, allowing access to the latest state value.
+ * 
+ * Note: The setState function here does not support functional updates, use `setState(getState() + 1)` instead.
+ * 
  * @example
- * ```tsx
  * const [state, setState, getState] = useGetState(0)
  *
  * function increment() {
@@ -10,7 +13,6 @@ import { useCallback, useRef, useState } from 'react'
  *  setState(current + 1)
  *  const next = getState() // 1
  * }
- * ```
  */
 export function useGetState<T>(initialState: T | (() => T)) {
   const [state, _setState] = useState<T>(initialState)

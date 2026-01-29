@@ -130,6 +130,9 @@ export default defineConfig(({ command, mode }) => {
         output: {
           hashCharacters: 'hex',
         },
+        experimental: {
+          lazyBarrel: true,
+        },
       },
     },
 
