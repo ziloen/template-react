@@ -18,6 +18,9 @@ declare const IS_DEV: boolean
 // use const to declare direct global constants
 declare const IS_BUILD: boolean
 
+/**
+ * The build time of the application in ISO 8601 format.
+ */
 declare const APP_BUILD_TIME: string
 declare const APP_BUILD_COMMIT: string
 

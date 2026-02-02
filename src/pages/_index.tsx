@@ -3,6 +3,7 @@ import { Counter } from '~/components/Counter'
 import { LanguageSelect } from '~/components/LanguageSelect'
 import { ThemeToggleButton } from '~/components/ThemeToggleButton'
 import { listFormat, useI18n } from '~/i18n'
+import { formatRelativeTime } from '~/utils'
 
 export default function Index() {
   const name = useRef<HTMLInputElement>(null)
@@ -34,11 +35,9 @@ export default function Index() {
         onKeyDown={({ key }) => key === 'Enter' && go()}
       />
 
-      <div>
-        <button className="m-3 btn text-sm" disabled={!name} onClick={go}>
-          Go
-        </button>
-      </div>
+      <button className="m-3 btn text-sm" onClick={go}>
+        Go
+      </button>
 
       <I18nExample />
     </div>
@@ -102,7 +101,7 @@ function Header() {
       },
     )
 
-    const relativeTime = getRelativeString(APP_BUILD_TIME, i18n.language)
+    const relativeTime = formatRelativeTime(APP_BUILD_TIME, i18n.language)
 
     return `${buildTime} (${relativeTime})`
   }, [i18n.language])
@@ -117,35 +116,4 @@ function Header() {
       <ThemeToggleButton />
     </div>
   )
-}
-
-function getRelativeString(date: string, language: string): string {
-  const dateTime = Temporal.Instant.from(date).toZonedDateTimeISO('UTC')
-  const now = Temporal.Now.zonedDateTimeISO('UTC')
-  const diff = dateTime.since(now, {
-    largestUnit: 'years',
-    smallestUnit: 'seconds',
-  })
-
-  const formatter = new Intl.RelativeTimeFormat(language, {
-    style: 'narrow',
-    numeric: 'auto',
-  })
-
-  const units = [
-    'years',
-    'months',
-    'days',
-    'hours',
-    'minutes',
-    'seconds',
-  ] as const
-
-  for (const unit of units) {
-    if (diff[unit] !== 0) {
-      return formatter.format(diff[unit], unit)
-    }
-  }
-
-  return formatter.format(0, 'minutes')
 }
