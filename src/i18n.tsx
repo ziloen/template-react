@@ -349,40 +349,39 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
       })
   })
 
+  const t = useMemoizedFn(function customT(key, data) {
+    // name: (children) => <span>{children}</span>
+    const fnData = new Map<string, (children: ReactNode) => ReactNode>()
+    // name: <span className="text-red" />
+    const elementData = new Map<string, ReactElement>()
+    // name: 'text'
+    const stringData = Object.create(null) as Record<string, string | number>
+
+    for (const [key, val] of Object.entries(data ?? {})) {
+      if (typeof val === 'function') {
+        fnData.set(key, val)
+      } else if (isValidElement(val)) {
+        elementData.set(key, val)
+      } else {
+        stringData[key] = val
+      }
+    }
+
+    return parseTemplate(
+      translation.t(key, stringData),
+      elementData,
+      fnData,
+      stringData,
+    )
+  } as CustomTFunction)
+
   const ctxValue = useMemo(() => {
     return {
       // eslint-disable-next-line @typescript-eslint/no-misused-spread
       ...translation,
       changeLanguage,
       fetchingLanguage,
-      t: function customT(key, data) {
-        // name: (children) => <span>{children}</span>
-        const fnData = new Map<string, (children: ReactNode) => ReactNode>()
-        // name: <span className="text-red" />
-        const elementData = new Map<string, ReactElement>()
-        // name: 'text'
-        const stringData = Object.create(null) as Record<
-          string,
-          string | number
-        >
-
-        for (const [key, val] of Object.entries(data ?? {})) {
-          if (typeof val === 'function') {
-            fnData.set(key, val)
-          } else if (isValidElement(val)) {
-            elementData.set(key, val)
-          } else {
-            stringData[key] = val
-          }
-        }
-
-        return parseTemplate(
-          translation.t(key, stringData),
-          elementData,
-          fnData,
-          stringData,
-        )
-      } as CustomTFunction,
+      t,
     }
   }, [translation, fetchingLanguage])
 

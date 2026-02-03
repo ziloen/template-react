@@ -38,7 +38,7 @@
         "src/locales/*.json"
       ],
       "options": {
-        "printWidth": 0
+        "printWidth": 1
       }
     }
   ],

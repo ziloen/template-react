@@ -41,7 +41,9 @@ declare module 'react-router' {
 declare module 'i18next' {
   interface CustomTypeOptions {
     defaultNS: 'translation'
-    resources: typeof import('../locales/_en-tpl.json')
+    resources: {
+      translation: typeof import('../locales/_en-tpl.json')
+    }
   }
 }
 
