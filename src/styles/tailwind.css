@@ -18,6 +18,10 @@
   /* https://daisyui.com/docs/utilities/#theme-css-variables */
   /* https://ui.shadcn.com/docs/theming */
 
+  --color-brand-primary: #00ffbf;
+  --color-brand-primary-hover: #00e6aa;
+  --color-brand-secondary: #bbff08;
+
   --color-surface-primary: light-dark(#ffffff, #121212);
   --color-surface-secondary: light-dark(--theme(--color-light-gray-200), --theme(--color-dark-gray-400));
 
@@ -83,5 +87,5 @@
 }
 
 @utility btn {
-  @apply px-4 py-1 rounded inline-block bg-green-700 text-white cursor-pointer hover:bg-green-600 disabled:cursor-default disabled:bg-dark-gray-50 disabled:opacity-50 border-none;
+  @apply px-4 py-1 rounded inline-block bg-brand-primary text-black cursor-pointer hover:bg-brand-primary-hover disabled:cursor-default disabled:bg-dark-gray-50 disabled:opacity-50 border-none;
 }

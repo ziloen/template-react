@@ -6,6 +6,7 @@ import react from '@vitejs/plugin-react'
 import browserslist from 'browserslist'
 import { Features, browserslistToTargets } from 'lightningcss'
 import { execSync } from 'node:child_process'
+import { resolve as r } from 'node:path'
 import AutoImport from 'unplugin-auto-import/vite'
 import Icons from 'unplugin-icons/vite'
 import { defineConfig } from 'vite'
@@ -22,7 +23,11 @@ export default defineConfig(({ command, mode }) => {
   return {
     base: process.env.BASE_URL || '/',
     resolve: {
-      tsconfigPaths: true,
+      tsconfigPaths: false,
+      alias: {
+        '~': r('src'),
+        '~cwd': cwd,
+      },
     },
 
     define: {

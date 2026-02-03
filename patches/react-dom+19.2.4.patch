@@ -1,0 +1,29 @@
+diff --git a/node_modules/react-dom/cjs/react-dom-client.development.js b/node_modules/react-dom/cjs/react-dom-client.development.js
+index fa853b3..7f91e0f 100644
+--- a/node_modules/react-dom/cjs/react-dom-client.development.js
++++ b/node_modules/react-dom/cjs/react-dom-client.development.js
+@@ -27999,15 +27999,15 @@
+         -1 === navigator.userAgent.indexOf("Edge")) ||
+         -1 < navigator.userAgent.indexOf("Firefox"))
+     ) {
+-      var protocol = window.location.protocol;
+-      /^(https?|file):$/.test(protocol) &&
+-        console.info(
+-          "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools" +
+-            ("file:" === protocol
+-              ? "\nYou might need to use a local HTTP server (instead of file://): https://react.dev/link/react-devtools-faq"
+-              : ""),
+-          "font-weight:bold"
+-        );
++      // var protocol = window.location.protocol;
++      // /^(https?|file):$/.test(protocol) &&
++      //   console.info(
++      //     "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools" +
++      //       ("file:" === protocol
++      //         ? "\nYou might need to use a local HTTP server (instead of file://): https://react.dev/link/react-devtools-faq"
++      //         : ""),
++      //     "font-weight:bold"
++      //   );
+     }
+     exports.createRoot = function (container, options) {
+       if (!isValidContainer(container))

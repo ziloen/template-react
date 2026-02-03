@@ -385,9 +385,5 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     }
   }, [translation, fetchingLanguage])
 
-  return (
-    <I18nextProvider i18n={i18next}>
-      <I18nContext value={ctxValue}>{children}</I18nContext>
-    </I18nextProvider>
-  )
+  return <I18nContext value={ctxValue}>{children}</I18nContext>
 }

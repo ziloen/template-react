@@ -9,6 +9,7 @@
     "lint": "cross-env TIMING=20 eslint .",
     "typecheck": "tsgo -b --noEmit",
     "format": "prettier --write . --experimental-cli",
+    "postinstall": "patch-package",
     "prepare": "husky"
   },
   "dependencies": {
@@ -42,7 +43,7 @@
     "@types/node": "24.10.9",
     "@types/react": "19.2.10",
     "@types/react-dom": "19.2.3",
-    "@typescript/native-preview": "7.0.0-dev.20260202.1",
+    "@typescript/native-preview": "7.0.0-dev.20260203.1",
     "@vitejs/devtools-vite": "0.0.0-alpha.26",
     "@vitejs/plugin-legacy": "8.0.0-beta.1",
     "@vitejs/plugin-react": "5.1.3",
@@ -56,6 +57,7 @@
     "lightningcss": "1.31.1",
     "lint-staged": "16.2.7",
     "oxfmt": "0.28.0",
+    "patch-package": "8.0.1",
     "prettier": "3.8.1",
     "prettier-plugin-organize-imports": "4.3.0",
     "prettier-plugin-sort-json": "4.2.0",

@@ -45,11 +45,15 @@ export function LanguageSelect() {
       }}
     >
       <Combobox.Trigger className="btn">
-        {!!fetchingLanguage && <span>Loading...</span>}
         <Combobox.Value>
           {(v: string) => getLanguageDisplayName(v, i18n.language)}
         </Combobox.Value>
-        <Combobox.Icon />
+
+        {fetchingLanguage ? (
+          <span className="ms-1 ascii-loader-dots duration-2000" />
+        ) : (
+          <Combobox.Icon className="ms-1 font-mono" />
+        )}
       </Combobox.Trigger>
 
       <Combobox.Portal>
