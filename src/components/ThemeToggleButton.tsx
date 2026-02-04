@@ -1,6 +1,4 @@
 import { useColorScheme } from '~/hooks'
-import CarbonSun from '~icons/carbon/sun'
-import CarbonMoon from '~icons/carbon/moon'
 
 export function ThemeToggleButton() {
   const [colorScheme, setColorScheme] = useColorScheme()
@@ -17,7 +15,7 @@ export function ThemeToggleButton() {
 
   return (
     <button
-      className="flex-center rounded-full bg-surface-secondary p-1 select-none"
+      className="flex-center size-8 rounded-full bg-surface-secondary p-1 font-mono text-base select-none"
       onClick={(e) => {
         const nextTheme = computedTheme === 'light' ? 'dark' : 'light'
         transitionTheme(() => {
@@ -34,11 +32,7 @@ export function ThemeToggleButton() {
         }, e.nativeEvent)
       }}
     >
-      {computedTheme === 'light' ? (
-        <CarbonMoon width={24} height={24} />
-      ) : (
-        <CarbonSun width={24} height={24} />
-      )}
+      {computedTheme === 'light' ? '🌙' : '☀️'}
     </button>
   )
 }

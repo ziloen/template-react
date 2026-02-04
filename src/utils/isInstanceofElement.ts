@@ -16,17 +16,19 @@
  */
 /* #__NO_SIDE_EFFECTS__ */
 export function isInstanceofElement<T extends typeof Element>(
-  element: Node | null | undefined,
+  element: EventTarget | Node | null | undefined,
   instance: T,
 ): element is T['prototype'] {
   if (element instanceof instance) {
     return true
   }
 
+  const _element = element as Node | null | undefined
+
   return Boolean(
-    element?.ownerDocument?.defaultView &&
-    element instanceof
-      element.ownerDocument.defaultView[
+    _element?.ownerDocument?.defaultView &&
+    _element instanceof
+      _element.ownerDocument.defaultView[
         instance.name as keyof typeof globalThis
       ],
   )

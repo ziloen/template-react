@@ -4,6 +4,8 @@ import type { LoaderFunction, RouteObject } from 'react-router'
 import { twMerge } from 'tailwind-merge'
 import { Temporal } from 'temporal-polyfill'
 
+export { isInstanceofElement } from './isInstanceofElement'
+
 /*#__NO_SIDE_EFFECTS__*/
 export function cn(
   ...classLists: (string | number | bigint | null | boolean | undefined)[]
