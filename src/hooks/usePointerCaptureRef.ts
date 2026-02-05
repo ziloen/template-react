@@ -3,32 +3,26 @@ import { isInstanceofElement } from '~/utils'
 import { useLatest } from './useLatest'
 import { useMemoizedFn } from './useMemoizedFn'
 
-type Positon = {
+type Position = {
   x: number
   y: number
 }
 
 type MovePosition = {
-  /** 离起点（pointerDown时位置）的 x */
+  /** 离 pointerdown 时的 x 距离 */
   dx: number
-  /** 离起点（pointerDown时位置）的 y */
+  /** 离 pointerdown 时的 y 距离 */
   dy: number
-} & Positon
+} & Position
 
 type Options<T> = {
   /**
-   * 开始捕获指针的回调函数，返回 `false` 来阻止此次捕获指针
+   * 返回 `false` 来取消此次捕获指针
    */
   onStart?: (this: T, downEvent: PointerEvent) => void | false
 
-  /**
-   * 移动过程中的回调函数
-   */
   onMove?: (this: T, moveEvent: PointerEvent, position: MovePosition) => void
 
-  /**
-   * 捕获结束后的回调函数
-   */
   onEnd?: (this: T, upEvent: PointerEvent, position: MovePosition) => void
 }
 
@@ -45,9 +39,10 @@ export function usePointerCaptureRef<T extends HTMLElement>(
     el.addEventListener(
       'pointerdown',
       function (downEvent) {
-        /** 如果用户取消捕获 */
-        if (optionsRef.current.onStart?.call(this as T, downEvent) === false)
+        /** 取消捕获 pointer */
+        if (optionsRef.current.onStart?.call(this as T, downEvent) === false) {
           return
+        }
 
         trackPointerMove<T>(downEvent, {
           onMove: function (this, ...args) {
@@ -72,23 +67,24 @@ export function trackPointerMove<T extends HTMLElement>(
   {
     onMove,
     onEnd,
+    signal,
   }: {
-    onMove: Options<NoInfer<T>>['onMove']
-    onEnd: Options<NoInfer<T>>['onEnd']
+    onMove?: Options<NoInfer<T>>['onMove']
+    onEnd?: Options<NoInfer<T>>['onEnd']
+    signal?: AbortSignal
   },
 ) {
   const { clientX: x, clientY: y, currentTarget: el } = downEvent
 
   if (!el || !isInstanceofElement(el, HTMLElement)) return
 
-  /** 阻止默认行为，防止 user-select 不为 none 时，拖动导致触发 pointercancel 事件，capture 失效() */
+  /** 防止 user-select 不为 none 时，拖动触发 pointercancel 事件，capture 失效() */
   downEvent.preventDefault()
 
-  /** 使当前元素锁定 pointer */
   el.setPointerCapture(downEvent.pointerId)
-  const controller = new AbortController()
+  const ac = new AbortController()
+  signal = signal ? AbortSignal.any([ac.signal, signal]) : ac.signal
 
-  /** 转发 move 事件 */
   el.addEventListener(
     'pointermove',
     function (moveEvent) {
@@ -99,22 +95,20 @@ export function trackPointerMove<T extends HTMLElement>(
         dy: moveEvent.y - y,
       })
     },
-    { signal: controller.signal, passive: true },
+    { signal, passive: true },
   )
 
-  /** pointerup 停止监听 */
-  el.addEventListener(
-    'pointerup',
-    function (upEvent) {
-      controller.abort()
-      el.releasePointerCapture(upEvent.pointerId)
-      onEnd?.call(this as T, upEvent, {
-        x: upEvent.x,
-        y: upEvent.y,
-        dx: upEvent.x - x,
-        dy: upEvent.y - y,
-      })
-    },
-    { once: true },
-  )
+  const release = function (this: EventTarget, event: PointerEvent) {
+    ac.abort()
+    el.releasePointerCapture(event.pointerId)
+    onEnd?.call(this as T, event, {
+      x: event.x,
+      y: event.y,
+      dx: event.x - x,
+      dy: event.y - y,
+    })
+  }
+
+  el.addEventListener('pointerup', release, { once: true, signal })
+  el.addEventListener('pointercancel', release, { once: true, signal })
 }

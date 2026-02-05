@@ -10,11 +10,7 @@ import {
   isValidElement,
   use,
 } from 'react'
-import {
-  I18nextProvider,
-  initReactI18next,
-  useTranslation,
-} from 'react-i18next'
+import { initReactI18next, useTranslation } from 'react-i18next'
 import type { LiteralUnion } from 'type-fest'
 import enJson from '~/locales/en.json'
 import { useMemoizedFn } from './hooks'
@@ -54,6 +50,7 @@ i18next.use(initReactI18next).init({
   lng: 'en',
   supportedLngs,
   fallbackLng,
+  showSupportNotice: false,
 
   resources: {
     en: { translation: enJson },

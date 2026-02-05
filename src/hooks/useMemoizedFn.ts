@@ -8,14 +8,14 @@ import { useRef } from 'react'
  * const [count, setCount] = useState(0);
  *
  * const memoizedFn = useMemoizedFn(() => {
- *  console.log(count);
+ *   console.log(count);
+ *   //          ^ Always logs the latest count value
  * });
  *
- * // Even if count changes, memoizedFn reference remains the same
  * useEffect(() => {
- *  memoizedFn(); // Always logs the latest count value
+ *   memoizedFn();
  * }, []);
- * // ^ No need to add memoizedFn to dependencies
+ * // ^ No need to add memoizedFn to dependencies as it never changes
  */
 export function useMemoizedFn<T extends (this: any, ...args: any[]) => any>(
   fn: T,

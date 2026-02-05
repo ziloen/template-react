@@ -3,7 +3,7 @@ export { useGetState } from './useGetState'
 export { useLatest } from './useLatest'
 export { useMemoizedFn } from './useMemoizedFn'
 export { useNextEffect, useNextLayoutEffect } from './useNextEffect'
-export { usePointerCaptureRef } from './usePointerCaptureRef'
+export { trackPointerMove, usePointerCaptureRef } from './usePointerCaptureRef'
 
 /**
  * @example
