@@ -114,3 +114,13 @@ export function formatRelativeTime(
 
   return formatter.format(0, 'seconds')
 }
+
+export function safe<T, E>(
+  fn: () => T,
+): [error: null, result: T] | [error: E, result: null] {
+  try {
+    return [null, fn()]
+  } catch (error) {
+    return [error as E, null]
+  }
+}

@@ -14,6 +14,7 @@ import { initReactI18next, useTranslation } from 'react-i18next'
 import type { LiteralUnion } from 'type-fest'
 import enJson from '~/locales/en.json'
 import { useMemoizedFn } from './hooks'
+import { safe } from './utils'
 
 const i18nResourcesMap = mapKeys(
   import.meta.glob<string>(['./*.json', '!./*-tpl.json'], {
@@ -81,31 +82,37 @@ i18next.use(initReactI18next).init({
 })
 
 function resolveLanguage(lng: string) {
-  if (supportedLngs.includes(lng)) {
-    return lng
+  const [err, requested] = safe(() => new Intl.Locale(lng).maximize())
+
+  if (!requested) {
+    return fallbackLng.default[0]
   }
 
-  if (fallbackLng[lng]) {
-    return fallbackLng[lng][0]
+  let scriptMatch: string | null = null
+  let languageMatch: string | null = null
+
+  for (const s of supportedLngs) {
+    const locale = new Intl.Locale(s).maximize()
+
+    if (locale.language !== requested.language) continue
+
+    const isScriptMatch = locale.script === requested.script
+    const isRegionMatch = locale.region === requested.region
+
+    if (isScriptMatch && isRegionMatch) {
+      return s
+    }
+
+    if (isScriptMatch && !scriptMatch) {
+      scriptMatch = s
+    }
+
+    if (!languageMatch) {
+      languageMatch = s
+    }
   }
 
-  const lngCode = lng.split(/-_/)[0]!
-
-  if (supportedLngs.includes(lngCode)) {
-    return lngCode
-  }
-
-  if (fallbackLng[lngCode]) {
-    return fallbackLng[lngCode][0]
-  }
-
-  const similarLng = supportedLngs.find((l) => l.startsWith(lngCode))
-
-  if (similarLng) {
-    return similarLng
-  }
-
-  return fallbackLng.default[0]
+  return scriptMatch || languageMatch || fallbackLng.default[0]
 }
 
 export type I18nKeys = ParseKeys
