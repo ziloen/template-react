@@ -86,6 +86,16 @@
   }
 }
 
+/* 简写 Base UI 的 data-starting-style 和 data-ending-style 状态 */
+@custom-variant ui-closed {
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    @slot;
+  }
+}
+
+
 @utility btn {
   @apply px-4 py-1 rounded inline-block bg-brand-primary text-black cursor-pointer hover:bg-brand-primary-hover disabled:cursor-default disabled:bg-dark-gray-50 disabled:opacity-50 border-none;
 }
