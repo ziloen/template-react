@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-redeclare */
 /**
  * @deprecated
  * use `import.meta.env.PROD` instead

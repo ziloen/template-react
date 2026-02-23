@@ -4,15 +4,6 @@
   "bracketSameLine": false,
   "bracketSpacing": true,
   "endOfLine": "lf",
-  "experimentalTailwindcss": {
-    "functions": [
-      "clsx",
-      "cn"
-    ],
-    "preserveDuplicates": false,
-    "preserveWhitespace": false,
-    "stylesheet": "./src/styles/tailwind.css"
-  },
   "htmlWhitespaceSensitivity": "css",
   "ignorePatterns": [
     "**/*.css",
@@ -46,6 +37,15 @@
   "quoteProps": "as-needed",
   "semi": false,
   "singleQuote": true,
+  "sortTailwindcss": {
+    "functions": [
+      "clsx",
+      "cn"
+    ],
+    "preserveDuplicates": false,
+    "preserveWhitespace": false,
+    "stylesheet": "./src/styles/tailwind.css"
+  },
   "tabWidth": 2,
   "trailingComma": "all",
   "useTabs": false

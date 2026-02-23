@@ -31,7 +31,7 @@ function ToastList() {
       <Toast.Title className="m-0" />
       <Toast.Description className="m-0" />
 
-      <Toast.Close className="absolute end-2 top-2 flex-center bg-transparent p-1">
+      <Toast.Close className="absolute inset-e-2 top-2 flex-center bg-transparent p-1">
         <CarbonClose width={16} height={16} />
       </Toast.Close>
     </Toast.Root>

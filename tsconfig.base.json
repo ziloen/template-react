@@ -12,7 +12,6 @@
     "skipDefaultLibCheck": true,
     // Type checking
     "strict": true,
-    "alwaysStrict": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "noImplicitAny": true,

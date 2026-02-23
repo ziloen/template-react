@@ -2,7 +2,6 @@ import clsx from 'clsx/lite'
 import type { ComponentType } from 'react'
 import type { LoaderFunction, RouteObject } from 'react-router'
 import { twMerge } from 'tailwind-merge'
-import { Temporal } from 'temporal-polyfill'
 
 export { isInstanceofElement } from './isInstanceofElement'
 
@@ -123,4 +122,9 @@ export function safe<T, E>(
   } catch (error) {
     return [error as E, null]
   }
+}
+
+export async function fileToBase64(file: File): Promise<string> {
+  const bytes = await file.bytes()
+  return bytes.toBase64()
 }

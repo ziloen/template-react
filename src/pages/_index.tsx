@@ -1,4 +1,3 @@
-import { Temporal } from 'temporal-polyfill'
 import { Counter } from '~/components/Counter'
 import { LanguageSelect } from '~/components/LanguageSelect'
 import { ThemeToggleButton } from '~/components/ThemeToggleButton'
