@@ -9,6 +9,7 @@
     "lint": "cross-env TIMING=20 eslint .",
     "typecheck": "tsgo -b --noEmit",
     "format": "prettier --write . --experimental-cli",
+    "fmt": "oxfmt",
     "postinstall": "patch-package",
     "prepare": "husky"
   },
@@ -41,7 +42,7 @@
     "@types/node": "24.10.13",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
-    "@typescript/native-preview": "7.0.0-dev.20260223.1",
+    "@typescript/native-preview": "7.0.0-dev.20260224.1",
     "@vitejs/devtools": "0.0.0-alpha.32",
     "@vitejs/plugin-legacy": "8.0.0-beta.3",
     "@vitejs/plugin-react": "5.1.4",

@@ -37,6 +37,27 @@
   "quoteProps": "as-needed",
   "semi": false,
   "singleQuote": true,
+  "sortImports": {
+    // prettier-plugin-organize-imports compatible configuration
+    "groups": [
+      "side_effect",
+      [
+        "builtin",
+        "external",
+        "internal"
+      ],
+      {
+        "newlinesBetween": false
+      },
+      [
+        "parent",
+        "sibling",
+        "index"
+      ],
+      "unknown"
+    ],
+    "newlinesBetween": true
+  },
   "sortTailwindcss": {
     "functions": [
       "clsx",

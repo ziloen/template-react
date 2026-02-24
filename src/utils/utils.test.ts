@@ -1,5 +1,5 @@
-import { globToRoutes } from './utils'
 import { expect, test } from 'vitest'
+import { globToRoutes } from './utils'
 
 test('globToRoutes converts glob patterns to route paths correctly', () => {
   const exports = { default: () => null }
