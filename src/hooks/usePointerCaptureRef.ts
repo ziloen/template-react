@@ -1,5 +1,4 @@
 import type { RefCallback } from 'react'
-import { isInstanceofElement } from '~/utils'
 import { useLatest } from './useLatest'
 import { useMemoizedFn } from './useMemoizedFn'
 
@@ -45,10 +44,10 @@ export function usePointerCaptureRef<T extends HTMLElement>(
         }
 
         trackPointerMove<T>(downEvent, {
-          onMove: function (this, ...args) {
+          onMove(this, ...args) {
             optionsRef.current.onMove?.call(this, ...args)
           },
-          onEnd: function (this, ...args) {
+          onEnd(this, ...args) {
             optionsRef.current.onEnd?.call(this, ...args)
           },
         })
@@ -73,10 +72,12 @@ export function trackPointerMove<T extends HTMLElement>(
     onEnd?: Options<NoInfer<T>>['onEnd']
     signal?: AbortSignal
   },
-) {
-  const { clientX: x, clientY: y, currentTarget: el } = downEvent
+): void {
+  const x = downEvent.clientX
+  const y = downEvent.clientY
+  const el = downEvent.currentTarget as T | null
 
-  if (!el || !isInstanceofElement(el, HTMLElement)) return
+  if (!el) return
 
   /** 防止 user-select 不为 none 时，拖动触发 pointercancel 事件，capture 失效() */
   downEvent.preventDefault()

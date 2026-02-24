@@ -126,11 +126,13 @@ export default defineConfig(({ command, mode }) => {
       // build.target is overwritten by plugin-legacy modernTargets option
       // target: browserslistToEsbuild(target),
       reportCompressedSize: false,
-      // FIXME: esbuild.drop: ['console', 'debugger']
       minify: 'oxc',
       rolldownOptions: {
         optimization: {
           inlineConst: { mode: 'all', pass: 3 },
+        },
+        treeshake: {
+          manualPureFunctions: ['console.log', 'console.info'],
         },
         output: {
           hashCharacters: 'hex',
