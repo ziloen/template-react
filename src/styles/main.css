@@ -12,6 +12,33 @@
     padding: 0;
     border: 0 solid;
   }
+
+  button {
+    cursor: pointer;
+
+    &:active {
+      /* Prevent text selection during rapid clicks */
+      user-select: none;
+    }
+  }
+
+  input[type="range"] {
+    cursor: pointer;
+
+    &::-moz-range-thumb,
+    &::-webkit-slider-thumb {
+      cursor: grab;
+    }
+
+    &:active {
+      cursor: grabbing;
+
+      &::-moz-range-thumb,
+      &::-webkit-slider-thumb {
+        cursor: grabbing;
+      }
+    }
+  }
 }
 
 html,
@@ -79,7 +106,7 @@ transition: --color-1 0.3s ease, --color-2 0.3s ease;
   --distance: .5;
   mask-mode: luminance;
   /* https://github.com/w3c/csswg-drafts/issues/1332 */
-  /* simulate easing color stops */
+  /* simulate easing color stops ease-in-out */
   mask-image: radial-gradient(circle farthest-corner at var(--mouse-x, center) var(--mouse-y, center) in oklab,
       hsl(0, 0%, 100.0%) calc(var(--percentage-1) * (1 + var(--distance) * 0.000)),
       hsl(0, 0%, 99.36%) calc(var(--percentage-1) * (1 + var(--distance) * 0.055)),

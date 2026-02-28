@@ -1,8 +1,7 @@
 import { Counter } from '~/components/Counter'
 import { LanguageSelect } from '~/components/LanguageSelect'
 import { ThemeToggleButton } from '~/components/ThemeToggleButton'
-import { listFormat, useI18n } from '~/i18n'
-import { formatRelativeTime } from '~/utils'
+import { formatList, formatRelativeTime, useI18n } from '~/i18n'
 
 export default function Index() {
   const name = useRef<HTMLInputElement>(null)
@@ -57,7 +56,9 @@ function I18nExample() {
 
       <div>
         {t('_examples.listInterpolation', {
-          list: listFormat(['CN', 'FR', 'RU', 'GB', 'US'], i18n.language),
+          list: formatList(['CN', 'FR', 'RU', 'GB', 'US'], {
+            language: i18n.language,
+          }),
         })}
       </div>
 

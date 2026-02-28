@@ -66,10 +66,3 @@ declare var LanguageDetector: {
     expectedInputLanguages: string[]
   }): Promise<'available' | 'downloadable' | 'downloading' | 'unavailable'>
 }
-
-interface ReadableStream<R = any> {
-  /**
-   * https://caniuse.com/mdn-api_readablestream_--asynciterator
-   */
-  [Symbol.asyncIterator]?(): AsyncIterableIterator<R>
-}

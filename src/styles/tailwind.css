@@ -55,17 +55,9 @@
   --color-field- */
 }
 
-/* 
-`[data-theme=dark]`, `:host([data-theme=dark])`
-*/
+/* `[data-theme=dark]`, `:host([data-theme=dark])` */
 @custom-variant dark {
 
-  /* &:where([data-theme=dark],
-    [data-theme=dark] *,
-    :host([data-theme=dark]),
-    :host([data-theme=dark]) *) {
-    @slot;
-  } */
   &[data-theme=dark],
   [data-theme=dark] &,
   &:host([data-theme=dark]),
@@ -74,26 +66,11 @@
   }
 }
 
-@custom-variant touch {
-  @media (hover: none) and (pointer: coarse) {
-    @slot;
-  }
-}
-
-@custom-variant hover-fine {
-  @media (hover: hover) and (pointer: fine) {
-    @slot;
-  }
-}
+@custom-variant touch (@media (hover: none) and (pointer: coarse));
+@custom-variant hover-fine (@media (hover: hover) and (pointer: fine));
 
 /* 简写 Base UI 的 data-starting-style 和 data-ending-style 状态 */
-@custom-variant ui-closed {
-
-  &[data-starting-style],
-  &[data-ending-style] {
-    @slot;
-  }
-}
+@custom-variant ui-closed (&[data-starting-style], &[data-ending-style]);
 
 
 @utility btn {

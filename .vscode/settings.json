@@ -40,7 +40,7 @@
   ],
   "prettier.enable": true,
   "tailwindCSS.experimental.configFile": "src/styles/tailwind.css",
-  "typescript.experimental.useTsgo": false,
+  "typescript.experimental.useTsgo": true,
   // https://devblogs.microsoft.com/typescript/announcing-typescript-5-6/#exclude-patterns-for-auto-imports
   "typescript.preferences.autoImportSpecifierExcludeRegexes": [
     "^console$",

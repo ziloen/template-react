@@ -41,6 +41,7 @@
     // prettier-plugin-organize-imports compatible configuration
     "groups": [
       "side_effect",
+      "style",
       [
         "builtin",
         "external",

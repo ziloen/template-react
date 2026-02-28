@@ -17,7 +17,7 @@
     "@base-ui/react": "1.2.0",
     "@tanstack/react-query": "5.90.21",
     "@wai-ri/core": "0.0.108",
-    "axios": "1.13.5",
+    "axios": "1.13.6",
     "clsx": "2.1.1",
     "es-toolkit": "1.44.0",
     "i18next": "25.8.13",
@@ -33,16 +33,16 @@
     "zustand": "5.0.11"
   },
   "devDependencies": {
-    "@iconify/json": "2.2.442",
+    "@iconify/json": "2.2.444",
     "@prettier/plugin-oxc": "0.1.3",
     "@svgr/core": "8.1.0",
     "@svgr/plugin-jsx": "8.1.0",
     "@tailwindcss/vite": "4.2.1",
     "@testing-library/react": "16.3.2",
-    "@types/node": "24.10.13",
+    "@types/node": "24.10.14",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
-    "@typescript/native-preview": "7.0.0-dev.20260224.1",
+    "@typescript/native-preview": "7.0.0-dev.20260228.1",
     "@vitejs/devtools": "0.0.0-alpha.32",
     "@vitejs/plugin-legacy": "8.0.0-beta.3",
     "@vitejs/plugin-react": "5.1.4",
@@ -69,7 +69,7 @@
     "unplugin-auto-import": "21.0.0",
     "unplugin-icons": "23.0.1",
     "unplugin-svg-component": "0.12.4",
-    "vite": "8.0.0-beta.15",
+    "vite": "8.0.0-beta.16",
     "vitest": "4.0.18"
   },
   "lint-staged": {

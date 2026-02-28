@@ -67,53 +67,6 @@ export function globToRoutes(
   })
 }
 
-/**
- * @param date ISO string or Epoch milliseconds
- *
- * @example
- * const relativeTime = formatRelativeTime('2023-01-01T00:00:00Z', 'en-US')
- * //=> 'in 2 months'
- * const relativeTime = formatRelativeTime(1672531200000, 'fr-FR')
- * //=> 'dans 2 mois'
- */
-export function formatRelativeTime(
-  date: string | number,
-  language: string,
-): string {
-  const dateTime =
-    typeof date === 'string'
-      ? Temporal.Instant.from(date).toZonedDateTimeISO('UTC')
-      : Temporal.Instant.fromEpochMilliseconds(date).toZonedDateTimeISO('UTC')
-
-  const now = Temporal.Now.zonedDateTimeISO('UTC')
-  const duration = dateTime.since(now, {
-    largestUnit: 'years',
-    smallestUnit: 'seconds',
-  })
-
-  const formatter = new Intl.RelativeTimeFormat(language, {
-    style: 'narrow',
-    numeric: 'auto',
-  })
-
-  const units = [
-    'years',
-    'months',
-    'days',
-    'hours',
-    'minutes',
-    'seconds',
-  ] as const
-
-  for (const unit of units) {
-    if (duration[unit] !== 0) {
-      return formatter.format(duration[unit], unit)
-    }
-  }
-
-  return formatter.format(0, 'seconds')
-}
-
 export function safe<T, E>(
   fn: () => T,
 ): [error: null, result: T] | [error: E, result: null] {

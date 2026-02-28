@@ -30,11 +30,11 @@ const App = (props: React.ComponentProps<'div'>) => {
 };
 ```
 
-### `React.ElementRef<typeof Component>` instead of `import { ComponentRefType } from "component"`
+### `React.ElementRef<typeof Component>` instead of `import { ComponentRefType } from "./Component"`
 
 ```tsx
 // bad
-import { Component, ComponentRefType } from "component";
+import { Component, type ComponentRefType } from "./Component";
 
 const App = () => {
   const ref = useRef<ComponentRefType>(null);
