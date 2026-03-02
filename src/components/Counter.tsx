@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 export function Counter({ initial = 0 }: { initial?: number }) {
   const [count, setCount] = useState(initial)
 

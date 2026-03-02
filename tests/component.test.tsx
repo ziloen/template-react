@@ -1,17 +1,16 @@
-import { cleanup, fireEvent, render } from '@testing-library/react'
-import { afterEach, describe, expect, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
+import { render } from 'vitest-browser-react'
 import { Counter } from '~/components/Counter'
 
 describe('Counter', () => {
-  afterEach(cleanup)
-  it('should render', () => {
-    const { getByText } = render(<Counter initial={10} />)
+  it('should render', async () => {
+    const { getByText } = await render(<Counter initial={10} />)
     expect(getByText('10')).toBeDefined()
   })
-  it('should be interactive', () => {
-    const { getByText } = render(<Counter initial={0} />)
+  it('should be interactive', async () => {
+    const { getByText } = await render(<Counter initial={0} />)
     expect(getByText('0')).toBeDefined()
-    fireEvent.click(getByText('+'))
+    await getByText('+').click()
     expect(getByText('1')).toBeDefined()
   })
 })

@@ -164,11 +164,6 @@ export default defineConfig(({ command, mode }) => {
       },
     },
 
-    // https://github.com/vitest-dev/vitest
-    test: {
-      environment: 'jsdom',
-    },
-
     experimental: {
       // renderBuiltUrl
       enableNativePlugin: true,

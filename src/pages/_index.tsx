@@ -1,7 +1,8 @@
 import { Counter } from '~/components/Counter'
 import { LanguageSelect } from '~/components/LanguageSelect'
 import { ThemeToggleButton } from '~/components/ThemeToggleButton'
-import { formatList, formatRelativeTime, useI18n } from '~/i18n'
+import { useI18n } from '~/i18n'
+import { formatList, formatRelativeTime } from '~/utils/intl'
 
 export default function Index() {
   const name = useRef<HTMLInputElement>(null)
