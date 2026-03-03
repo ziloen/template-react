@@ -1,5 +1,6 @@
 import { Combobox, Tooltip } from '@base-ui/react'
-import { getLanguageDisplayName, supportedLngs, useI18n } from '~/i18n'
+import { supportedLngs, useI18n } from '~/i18n'
+import { formatLanguageName } from '~/utils/intl'
 
 export function LanguageSelect() {
   const { i18n, changeLanguage, fetchingLanguage } = useI18n()
@@ -14,7 +15,7 @@ export function LanguageSelect() {
               value={l}
               className="flex justify-between gap-2"
             >
-              <span>{getLanguageDisplayName(l, l)}</span>
+              <span>{formatLanguageName(l, { language: l })}</span>
             </Combobox.Item>
           }
         />
@@ -27,7 +28,7 @@ export function LanguageSelect() {
             collisionAvoidance={{ side: 'none' }}
           >
             <Tooltip.Popup className="bg-surface-secondary px-1.5 py-0.5">
-              <span>{getLanguageDisplayName(l, i18n.language)}</span>
+              <span>{formatLanguageName(l, { language: i18n.language })}</span>
             </Tooltip.Popup>
           </Tooltip.Positioner>
         </Tooltip.Portal>
@@ -46,7 +47,7 @@ export function LanguageSelect() {
     >
       <Combobox.Trigger className="btn">
         <Combobox.Value>
-          {(v: string) => getLanguageDisplayName(v, i18n.language)}
+          {(v: string) => formatLanguageName(v, { language: i18n.language })}
         </Combobox.Value>
 
         {fetchingLanguage ? (

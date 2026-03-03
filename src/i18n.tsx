@@ -328,32 +328,3 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
 
   return <I18nContext value={ctxValue}>{children}</I18nContext>
 }
-
-/**
- * @example
- * ```ts
- * const displayName = getLanguageDisplayName('zh-Hans', 'en-US')
- * //    ^ "Chinese (Simplified)"
- * ```
- */
-/*#__NO_SIDE_EFFECTS__*/
-export function getLanguageDisplayName<
-  T extends Intl.DisplayNamesFallback = 'code',
->(
-  language: string,
-  toLanguage: string,
-  options: Omit<Intl.DisplayNamesOptions, 'type' | 'fallback'> & {
-    fallback?: T
-  } = {
-    fallback: 'code' as T,
-  },
-): T extends 'code' ? string : string | undefined {
-  try {
-    return new Intl.DisplayNames([toLanguage], {
-      type: 'language',
-      ...options,
-    }).of(language)!
-  } catch {
-    return language
-  }
-}

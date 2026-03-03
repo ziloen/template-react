@@ -52,14 +52,16 @@ export function formatList(
  */
 /*#__NO_SIDE_EFFECTS__*/
 export function formatRelativeTime(
-  date: string | number,
+  date: string | number | Date,
   language: string,
   now = Temporal.Now.zonedDateTimeISO('UTC'),
 ): string {
   const dateTime =
     typeof date === 'string'
       ? Temporal.Instant.from(date).toZonedDateTimeISO('UTC')
-      : Temporal.Instant.fromEpochMilliseconds(date).toZonedDateTimeISO('UTC')
+      : typeof date === 'number'
+        ? Temporal.Instant.fromEpochMilliseconds(date).toZonedDateTimeISO('UTC')
+        : date.toTemporalInstant().toZonedDateTimeISO('UTC')
 
   const duration = dateTime.since(now, {
     largestUnit: 'years',
@@ -177,4 +179,33 @@ export function formatDuration(
   }
 
   return parts.join(dict._separator)
+}
+
+/**
+ * @example
+ * ```ts
+ * const displayName = formatLanguageName('zh-Hans', 'en-US')
+ * //    ^ "Chinese (Simplified)"
+ * ```
+ */
+/*#__NO_SIDE_EFFECTS__*/
+export function formatLanguageName<
+  T extends Intl.DisplayNamesFallback = 'code',
+>(
+  language: string,
+  options: Omit<Intl.DisplayNamesOptions, 'type' | 'fallback'> & {
+    fallback?: T
+    language: string
+  },
+): T extends 'code' ? string : string | undefined {
+  try {
+    const { language: toLanguage, ...rest } = options
+
+    return new Intl.DisplayNames([toLanguage], {
+      type: 'language',
+      ...rest,
+    }).of(language)!
+  } catch {
+    return language
+  }
 }
