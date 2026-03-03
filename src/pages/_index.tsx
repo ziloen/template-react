@@ -102,7 +102,9 @@ function Header() {
       },
     )
 
-    const relativeTime = formatRelativeTime(APP_BUILD_TIME, i18n.language)
+    const relativeTime = formatRelativeTime(APP_BUILD_TIME, {
+      language: i18n.language,
+    })
 
     return `${buildTime} (${relativeTime})`
   }, [i18n.language])

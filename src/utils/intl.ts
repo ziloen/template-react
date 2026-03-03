@@ -44,17 +44,22 @@ export function formatList(
  *
  * @example
  * ```ts
- * const relativeTime = formatRelativeTime('2023-01-01T00:00:00Z', 'en-US')
+ * const relativeTime = formatRelativeTime('2023-01-01T00:00:00Z', { language: 'en-US' })
  * //=> 'in 2 months'
- * const relativeTime = formatRelativeTime(1672531200000, 'fr-FR')
+ * const relativeTime = formatRelativeTime(1672531200000, { language: 'fr-FR' })
  * //=> 'dans 2 mois'
  * ```
  */
 /*#__NO_SIDE_EFFECTS__*/
 export function formatRelativeTime(
   date: string | number | Date,
-  language: string,
-  now = Temporal.Now.zonedDateTimeISO('UTC'),
+  options: Intl.RelativeTimeFormatOptions & {
+    language: string
+    /**
+     * @default `Temporal.Now.zonedDateTimeISO('UTC')`
+     */
+    relativeTo?: Temporal.ZonedDateTime
+  },
 ): string {
   const dateTime =
     typeof date === 'string'
@@ -63,7 +68,13 @@ export function formatRelativeTime(
         ? Temporal.Instant.fromEpochMilliseconds(date).toZonedDateTimeISO('UTC')
         : date.toTemporalInstant().toZonedDateTimeISO('UTC')
 
-  const duration = dateTime.since(now, {
+  const {
+    language,
+    relativeTo = Temporal.Now.zonedDateTimeISO('UTC'),
+    ...rest
+  } = options
+
+  const duration = dateTime.since(relativeTo, {
     largestUnit: 'years',
     smallestUnit: 'seconds',
   })
@@ -71,6 +82,7 @@ export function formatRelativeTime(
   const formatter = new Intl.RelativeTimeFormat(language, {
     style: 'narrow',
     numeric: 'auto',
+    ...rest,
   })
 
   const units = [
@@ -184,7 +196,7 @@ export function formatDuration(
 /**
  * @example
  * ```ts
- * const displayName = formatLanguageName('zh-Hans', 'en-US')
+ * const displayName = formatLanguageName('zh-Hans', { language: 'en-US' })
  * //    ^ "Chinese (Simplified)"
  * ```
  */
