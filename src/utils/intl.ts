@@ -27,7 +27,7 @@ export function formatList(
   } = {},
 ): string {
   try {
-    const { language = navigator.language, ...formatOptions } = options
+    const { language, ...formatOptions } = options
 
     return new Intl.ListFormat(language, {
       type: 'conjunction',
@@ -67,9 +67,9 @@ export function formatRelativeTime(
         : date.toTemporalInstant().toZonedDateTimeISO('UTC')
 
   const {
-    language = navigator.language,
+    language,
     relativeTo = Temporal.Now.zonedDateTimeISO('UTC'),
-    ...rest
+    ...formatOptions
   } = options
 
   const duration = dateTime.since(relativeTo, {
@@ -80,7 +80,7 @@ export function formatRelativeTime(
   const formatter = new Intl.RelativeTimeFormat(language, {
     style: 'narrow',
     numeric: 'auto',
-    ...rest,
+    ...formatOptions,
   })
 
   const units = [
@@ -119,12 +119,12 @@ export function formatDuration(
     language?: string
   } = {},
 ): string {
-  const { padZero, language = navigator.language, ...rest } = options
+  const { padZero, language, ...formatOptions } = options
 
   if (Intl.DurationFormat) {
     const formatter = new Intl.DurationFormat(language, {
       style: 'narrow',
-      ...rest,
+      ...formatOptions,
     })
 
     if (padZero) {
@@ -142,9 +142,9 @@ export function formatDuration(
           return part.value
         })
         .join('')
-    } else {
-      return formatter.format(duration)
     }
+
+    return formatter.format(duration) || '0s'
   }
 
   const DURATION_UNITS: Intl.DurationFormatUnit[] = [
@@ -209,11 +209,11 @@ export function formatLanguageName<
   } = {},
 ): T extends 'code' ? string : string | undefined {
   try {
-    const { language: toLanguage = navigator.language, ...rest } = options
+    const { language: toLanguage, ...formatOptions } = options
 
-    return new Intl.DisplayNames([toLanguage], {
+    return new Intl.DisplayNames(toLanguage, {
       type: 'language',
-      ...rest,
+      ...formatOptions,
     }).of(language)!
   } catch {
     return language
