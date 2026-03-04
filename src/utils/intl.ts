@@ -1,9 +1,9 @@
 /**
  * @example
  * ```ts
- * const formatted = listFormat(['apple', 'banana', 'cherry'], 'en-US')
+ * const formatted = listFormat(['apple', 'banana', 'cherry'], { language: 'en-US' })
  * //    ^ "apple, banana, and cherry"
- * const formatted = listFormat(['苹果', '香蕉', '樱桃'], 'zh-CN')
+ * const formatted = listFormat(['苹果', '香蕉', '樱桃'], { language: 'zh-CN' })
  * //    ^ "苹果、香蕉和樱桃"
  * ```
  */
@@ -11,7 +11,7 @@
 export function formatList(
   list: readonly string[],
   options: {
-    language: string
+    language?: string
     /**
      * - "conjunction": A, B, and C,
      * - "disjunction": A, B, or C,
@@ -24,10 +24,10 @@ export function formatList(
      * - "narrow": A, B, C
      */
     style?: Intl.ListFormatStyle | undefined
-  },
+  } = {},
 ): string {
   try {
-    const { language, ...formatOptions } = options
+    const { language = navigator.language, ...formatOptions } = options
 
     return new Intl.ListFormat(language, {
       type: 'conjunction',
@@ -40,13 +40,11 @@ export function formatList(
 }
 
 /**
- * @param date ISO string or Epoch milliseconds
- *
  * @example
  * ```ts
- * const relativeTime = formatRelativeTime('2023-01-01T00:00:00Z', { language: 'en-US' })
+ * const relativeTime = formatRelativeTime('2023-01-01T00:00:00Z')
  * //=> 'in 2 months'
- * const relativeTime = formatRelativeTime(1672531200000, { language: 'fr-FR' })
+ * const relativeTime = formatRelativeTime(1672531200000, { language: 'fr' })
  * //=> 'dans 2 mois'
  * ```
  */
@@ -54,12 +52,12 @@ export function formatList(
 export function formatRelativeTime(
   date: string | number | Date,
   options: Intl.RelativeTimeFormatOptions & {
-    language: string
+    language?: string
     /**
      * @default `Temporal.Now.zonedDateTimeISO('UTC')`
      */
     relativeTo?: Temporal.ZonedDateTime
-  },
+  } = {},
 ): string {
   const dateTime =
     typeof date === 'string'
@@ -69,7 +67,7 @@ export function formatRelativeTime(
         : date.toTemporalInstant().toZonedDateTimeISO('UTC')
 
   const {
-    language,
+    language = navigator.language,
     relativeTo = Temporal.Now.zonedDateTimeISO('UTC'),
     ...rest
   } = options
@@ -107,9 +105,9 @@ export function formatRelativeTime(
 /**
  * @example
  * ```ts
- * const formatted = formatDuration({ hours: 1, minutes: 30 }, 'en-US')
+ * const formatted = formatDuration({ hours: 1, minutes: 30 }, { language: 'en-US' })
  * //    ^ "1h 30m"
- * const formatted = formatDuration({ hours: 1, minutes: 30 }, 'zh-CN')
+ * const formatted = formatDuration({ hours: 1, minutes: 30 }, { language: 'zh-CN' })
  * //    ^ "1小时30分钟"
  * ```
  */
@@ -118,10 +116,10 @@ export function formatDuration(
   duration: Partial<Record<Intl.DurationFormatUnit, number>>,
   options: Intl.DurationFormatOptions & {
     padZero?: boolean
-    language: string
-  },
+    language?: string
+  } = {},
 ): string {
-  const { padZero, language, ...rest } = options
+  const { padZero, language = navigator.language, ...rest } = options
 
   if (Intl.DurationFormat) {
     const formatter = new Intl.DurationFormat(language, {
@@ -207,11 +205,11 @@ export function formatLanguageName<
   language: string,
   options: Omit<Intl.DisplayNamesOptions, 'type' | 'fallback'> & {
     fallback?: T
-    language: string
-  },
+    language?: string
+  } = {},
 ): T extends 'code' ? string : string | undefined {
   try {
-    const { language: toLanguage, ...rest } = options
+    const { language: toLanguage = navigator.language, ...rest } = options
 
     return new Intl.DisplayNames([toLanguage], {
       type: 'language',
