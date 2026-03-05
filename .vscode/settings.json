@@ -1,18 +1,9 @@
 {
-  "[javascript]": {
-    "editor.defaultFormatter": "oxc.oxc-vscode"
-  },
-  "[javascriptreact]": {
+  "[javascript][javascriptreact][typescript][typescriptreact]": {
     "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "[json]": {
     "editor.defaultFormatter": "vscode.json-language-features"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "oxc.oxc-vscode"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "cSpell.words": [
     "tailwindcss",
@@ -29,7 +20,9 @@
     ".vscode/emmet",
   ],
   "eslint.format.enable": false,
-  "javascript.preferences.autoImportSpecifierExcludeRegexes": [
+  "js/ts.experimental.useTsgo": true,
+  // https://devblogs.microsoft.com/typescript/announcing-typescript-5-6/#exclude-patterns-for-auto-imports
+  "js/ts.preferences.autoImportSpecifierExcludeRegexes": [
     "^console$",
     "^motion/react-client$",
     "^motion/react-m$",
@@ -39,16 +32,5 @@
     "^zod/v4/locales",
   ],
   "prettier.enable": true,
-  "tailwindCSS.experimental.configFile": "src/styles/tailwind.css",
-  "typescript.experimental.useTsgo": true,
-  // https://devblogs.microsoft.com/typescript/announcing-typescript-5-6/#exclude-patterns-for-auto-imports
-  "typescript.preferences.autoImportSpecifierExcludeRegexes": [
-    "^console$",
-    "^motion/react-client$",
-    "^motion/react-m$",
-    "^node:console$",
-    "^typescript$",
-    "^zod/locales",
-    "^zod/v4/locales",
-  ]
+  "tailwindCSS.experimental.configFile": "src/styles/tailwind.css"
 }
