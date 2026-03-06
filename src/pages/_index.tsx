@@ -114,7 +114,7 @@ function Header() {
       <time dateTime={new Date(APP_BUILD_TIME).toISOString()}>
         {timeString}
       </time>
-      <span className="opacity-50">{APP_BUILD_COMMIT}</span>
+      <span className="text-current/50">{APP_BUILD_COMMIT}</span>
       <LanguageSelect />
       <ThemeToggleButton />
     </div>
