@@ -166,7 +166,6 @@ export default defineConfig(({ command, mode }) => {
 
     experimental: {
       // renderBuiltUrl
-      enableNativePlugin: true,
     },
   }
 })
