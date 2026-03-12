@@ -38,10 +38,21 @@
   "semi": false,
   "singleQuote": true,
   "sortImports": {
+    "customGroups": [
+      {
+        "elementNamePattern": [
+          "**/*.{png,jpg,jpeg,svg,gif,bmp,webp,mp4,mov,avi,mkv}"
+        ],
+        "groupName": "assets"
+      }
+    ],
     // prettier-plugin-organize-imports compatible configuration
     "groups": [
       "side_effect",
-      "style",
+      [
+        "style",
+        "assets"
+      ],
       [
         "builtin",
         "external",
