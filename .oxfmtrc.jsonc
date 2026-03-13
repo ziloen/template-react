@@ -41,7 +41,7 @@
     "customGroups": [
       {
         "elementNamePattern": [
-          "**/*.{png,jpg,jpeg,svg,gif,bmp,webp,mp4,mov,avi,mkv}"
+          "**/*.{png,jpg,jpeg,svg,gif,bmp,webp,mp4,mov,avi,mkv,json}"
         ],
         "groupName": "assets"
       }
