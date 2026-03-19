@@ -19,8 +19,6 @@
   "css.customData": [
     ".vscode/css-data.json",
   ],
-  // due to this issue https://github.com/microsoft/vscode/issues/179355, we need to set this to top
-  // "editor.snippetSuggestions": "top",
   // add @container & @media snippet
   "emmet.extensionsPath": [
     ".vscode/emmet",

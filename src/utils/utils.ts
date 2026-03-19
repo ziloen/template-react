@@ -77,7 +77,15 @@ export function safe<T, E>(
   }
 }
 
-export async function fileToBase64(file: File): Promise<string> {
-  const bytes = await file.bytes()
+/*#__NO_SIDE_EFFECTS__*/
+export async function blobToBase64(blob: Blob): Promise<string> {
+  const bytes = await blob.bytes()
   return bytes.toBase64()
+}
+
+/*#__NO_SIDE_EFFECTS__*/
+export async function blobToDataURL(blob: Blob): Promise<string> {
+  const base64 = await blobToBase64(blob)
+  const mimeType = blob.type || 'application/octet-stream'
+  return `data:${mimeType};base64,${base64}`
 }

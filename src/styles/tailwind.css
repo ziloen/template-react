@@ -69,8 +69,16 @@
 @custom-variant touch (@media (hover: none) and (pointer: coarse));
 @custom-variant hover-fine (@media (hover: hover) and (pointer: fine));
 
-/* 简写 Base UI 的 data-starting-style 和 data-ending-style 状态 */
+/* Base-UI */
 @custom-variant ui-closed (&[data-starting-style], &[data-ending-style]);
+@custom-variant data-checked (&[data-checked]);
+@custom-variant data-disabled (&[data-disabled]);
+@custom-variant data-ending-style (&[data-ending-style]);
+@custom-variant data-highlighted (&[data-highlighted]);
+@custom-variant data-popup-open (&[data-popup-open]);
+@custom-variant data-selected (&[data-selected]);
+@custom-variant data-starting-style (&[data-starting-style]);
+@custom-variant data-unchecked (&[data-unchecked]);
 
 
 @utility btn {
