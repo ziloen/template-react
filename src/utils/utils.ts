@@ -55,7 +55,7 @@ export function globToRoutes(
         }
 
         return {
-          loader: route.loader,
+          loader: route.loader ?? false,
           handle: route.handle,
           Component: route.default,
           // FIXME: HydrateFallback is not working in lazy routes
@@ -63,7 +63,7 @@ export function globToRoutes(
           ErrorBoundary: route.ErrorBoundary ?? null,
         }
       },
-    }
+    } satisfies RouteObject
   })
 }
 

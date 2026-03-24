@@ -10,13 +10,13 @@ export default function Index() {
   const navigate = useNavigate()
 
   function go() {
-    if (name.current) {
-      navigate(`/hi/${encodeURIComponent(name.current.value)}`, {
-        state: {
-          from: '/',
-        },
-      })
-    }
+    if (!name.current) return
+
+    navigate(`/hi/${encodeURIComponent(name.current.value)}`, {
+      state: {
+        from: '/',
+      },
+    })
   }
 
   return (

@@ -31,12 +31,10 @@ describe('formatRelativeTime', () => {
   it('picks the first non-zero unit from duration', () => {
     const result = formatRelativeTime('2026-03-10T00:00:00Z', {
       language: 'en-US',
-      relativeTo: Temporal.Instant.from('2026-01-10T00:00:00Z').toZonedDateTimeISO(
-        'UTC',
-      ),
+      relativeTo: Temporal.Instant.from(
+        '2026-01-10T00:00:00Z',
+      ).toZonedDateTimeISO('UTC'),
     })
-
-    console.log(result)
 
     expect(result).toBe('in 2mo')
   })
@@ -44,9 +42,9 @@ describe('formatRelativeTime', () => {
   it('returns zero seconds when all duration units are zero', () => {
     const result = formatRelativeTime('2026-03-10T00:00:00Z', {
       language: 'en-US',
-      relativeTo: Temporal.Instant.from('2026-03-10T00:00:00Z').toZonedDateTimeISO(
-        'UTC',
-      ),
+      relativeTo: Temporal.Instant.from(
+        '2026-03-10T00:00:00Z',
+      ).toZonedDateTimeISO('UTC'),
     })
 
     expect(result).toBe('now')
