@@ -49,7 +49,7 @@ function I18nExample() {
   return (
     <>
       <div>
-        {t('useI18nTest', {
+        {t('_examples.useI18nTest', {
           link: <a className="text-info-primary" />,
           name: <span className="text-success-primary">Dynamic Content</span>,
         })}

@@ -4,7 +4,8 @@
     "multipleSameTags": "try <b>bold</b> and <b>bold</b>",
     "nestedTags": "try <b>bold and <i>italic</i></b>",
     "notranslate": "try Artifact",
-    "tagAndVariable": "try <b>{{name}}</b>"
+    "tagAndVariable": "try <b>{{name}}</b>",
+    "useI18nTest": "<link>here</link> to test the tag, and {{name}} to test the variable. This part will not be translated."
   },
   "common": {
     "back": "Back",
@@ -19,7 +20,7 @@
     "save": "Save",
     "submit": "Submit"
   },
+  "fileSizeExceeded": "File size exceeded. Maximum allowed size is {{maxSize}}. Current file size is {{currentSize}}.",
   "loading": "Loading...",
-  "placeholder": "What's your name?",
-  "useI18nTest": "<link>here</link> to test the tag, and {{name}} to test the variable. This part will not be translated."
+  "placeholder": "What's your name?"
 }

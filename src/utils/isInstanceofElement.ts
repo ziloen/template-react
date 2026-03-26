@@ -14,7 +14,7 @@
  * isInstanceofElement(event.target, HTMLInputElement) && event.target.value // some value
  * ```
  */
-/* #__NO_SIDE_EFFECTS__ */
+/*#__NO_SIDE_EFFECTS__*/
 export function isInstanceofElement<T extends typeof Element>(
   element: EventTarget | Node | null | undefined,
   instance: T,

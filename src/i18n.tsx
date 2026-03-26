@@ -1,3 +1,5 @@
+import enJson from '~/locales/en.json'
+
 import { mapKeys } from 'es-toolkit'
 import type { ParseKeys } from 'i18next'
 import i18next from 'i18next'
@@ -12,7 +14,6 @@ import {
 } from 'react'
 import { initReactI18next, useTranslation } from 'react-i18next'
 import type { LiteralUnion } from 'type-fest'
-import enJson from '~/locales/en.json'
 import { useMemoizedFn } from './hooks'
 import { safe } from './utils'
 
@@ -118,6 +119,7 @@ export type I18nKeys = ParseKeys
 
 type CustomTFunction = {
   (key: I18nKeys): string
+  // TODO: better type for data
   (key: I18nKeys, data: Record<string, string | number>): string
   (
     key: I18nKeys,
