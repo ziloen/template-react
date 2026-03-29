@@ -14,7 +14,7 @@ export function LanguageSelect() {
         changeLanguage(value)
       }}
     >
-      <Combobox.Trigger className="btn">
+      <Combobox.Trigger className="btn flex gap-1 px-2.5">
         <Combobox.Value>
           {(v: string) => formatLanguageName(v, { language: i18n.language })}
         </Combobox.Value>
@@ -28,10 +28,10 @@ export function LanguageSelect() {
 
       <Combobox.Portal>
         <Combobox.Positioner side="bottom" align="end" sideOffset={4}>
-          <Combobox.Popup className="border bg-surface-primary px-1 py-2">
-            <Combobox.Input className="" />
+          <Combobox.Popup className="flex flex-col border bg-surface-primary">
+            <Combobox.Input className="w-full bg-[Field] text-base" />
 
-            <Tooltip.Provider delay={200}>
+            <Tooltip.Provider delay={100}>
               <Combobox.List>
                 {(l: string) => (
                   <Tooltip.Root key={l}>
@@ -40,9 +40,9 @@ export function LanguageSelect() {
                         <Combobox.Item
                           key={l}
                           value={l}
-                          className="flex justify-between gap-2"
+                          className="flex justify-between gap-2 text-base data-highlighted:bg-surface-secondary data-selected:bg-surface-secondary"
                         >
-                          <span>{formatLanguageName(l, { language: l })}</span>
+                          {formatLanguageName(l, { language: l })}
                         </Combobox.Item>
                       }
                     />

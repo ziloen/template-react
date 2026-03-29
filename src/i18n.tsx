@@ -52,7 +52,6 @@ i18next.use(initReactI18next).init({
   lng: 'en',
   supportedLngs,
   fallbackLng,
-  showSupportNotice: false,
 
   resources: {
     en: { translation: enJson },

@@ -95,6 +95,7 @@ transition: --color-1 0.3s ease, --color-2 0.3s ease;
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
+  user-select: none;
 }
 
 ::view-transition-old(root) {
