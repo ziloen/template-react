@@ -15,11 +15,6 @@
 
   button {
     cursor: pointer;
-
-    &:active {
-      /* Prevent text selection during rapid clicks */
-      user-select: none;
-    }
   }
 
   input[type="range"] {
