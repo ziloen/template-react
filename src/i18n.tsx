@@ -268,7 +268,12 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     if (resolvedLang === i18next.language) return
 
     if (i18next.hasResourceBundle(resolvedLang, 'translation')) {
-      i18next.changeLanguage(resolvedLang)
+      i18next.changeLanguage(resolvedLang).then(() => {
+        document.documentElement.setAttribute(
+          'dir',
+          i18next.dir(i18next.language),
+        )
+      })
       return
     }
 
@@ -283,7 +288,12 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
 
         if (key !== lastFetchKey.current) return
 
-        i18next.changeLanguage(resolvedLang)
+        i18next.changeLanguage(resolvedLang).then(() => {
+          document.documentElement.setAttribute(
+            'dir',
+            i18next.dir(i18next.language),
+          )
+        })
       })
       .finally(() => {
         if (key !== lastFetchKey.current) return
