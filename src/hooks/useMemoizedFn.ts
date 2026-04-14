@@ -20,7 +20,7 @@ import { useRef } from 'react'
 export function useMemoizedFn<T extends (this: any, ...args: any[]) => any>(
   fn: T,
 ): T {
-  const fnRef = useRef<T>(fn)
+  const fnRef = useRef(fn)
   const memoizedFn = useRef<T | undefined>(undefined)
 
   fnRef.current = fn

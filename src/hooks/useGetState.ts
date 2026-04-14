@@ -16,7 +16,7 @@ import { useCallback, useRef, useState } from 'react'
  */
 export function useGetState<T>(initialState: T | (() => T)) {
   const [state, _setState] = useState<T>(initialState)
-  const stateRef = useRef<T>(state)
+  const stateRef = useRef(state)
 
   const getState = useCallback(() => stateRef.current, [])
 
