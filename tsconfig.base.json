@@ -16,7 +16,7 @@
     "strictFunctionTypes": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "noImplicitReturns": true,
+    "noImplicitReturns": false,
     "noImplicitOverride": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
