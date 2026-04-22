@@ -1,8 +1,9 @@
 import { Counter } from '~/components/Counter'
 import { LanguageSelect } from '~/components/LanguageSelect'
 import { ThemeToggleButton } from '~/components/ThemeToggleButton'
+import { useRelativeTime } from '~/hooks'
 import { useI18n } from '~/i18n'
-import { formatList, formatRelativeTime } from '~/utils/intl'
+import { formatList } from '~/utils/intl'
 
 export default function Index() {
   const name = useRef<HTMLInputElement>(null)
@@ -89,30 +90,25 @@ function I18nExample() {
 function Header() {
   const { i18n } = useI18n()
 
-  const timeString = useMemo(() => {
-    const buildTime = Temporal.Instant.from(APP_BUILD_TIME).toLocaleString(
-      i18n.language,
-      {
+  const buildTime = useMemo(
+    () =>
+      Temporal.Instant.from(APP_BUILD_TIME).toLocaleString(i18n.language, {
         year: 'numeric',
         month: '2-digit',
         day: '2-digit',
         hour: '2-digit',
         minute: '2-digit',
         hour12: false,
-      },
-    )
+      }),
+    [i18n.language],
+  )
 
-    const relativeTime = formatRelativeTime(APP_BUILD_TIME, {
-      language: i18n.language,
-    })
-
-    return `${buildTime} (${relativeTime})`
-  }, [i18n.language])
+  const relativeTime = useRelativeTime(APP_BUILD_TIME)
 
   return (
     <div className="flex w-full items-center justify-end gap-2 px-2 py-2">
       <time dateTime={new Date(APP_BUILD_TIME).toISOString()}>
-        {timeString}
+        {buildTime} ({relativeTime})
       </time>
       <span className="text-current/50">{APP_BUILD_COMMIT}</span>
       <LanguageSelect />

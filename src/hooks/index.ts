@@ -4,6 +4,7 @@ export { useLatest } from './useLatest'
 export { useMemoizedFn } from './useMemoizedFn'
 export { useNextEffect, useNextLayoutEffect } from './useNextEffect'
 export { trackPointerMove, usePointerCaptureRef } from './usePointerCaptureRef'
+export { useRelativeTime } from './useRelativeTime'
 
 /**
  * @example

@@ -2,25 +2,37 @@ import { z } from 'zod'
 import { request } from './'
 
 const postSchema = z.object({
-  userId: z.number(),
   id: z.number(),
   title: z.string(),
   body: z.string(),
+  tags: z.array(z.string()),
+  reactions: z.object({
+    likes: z.number(),
+    dislikes: z.number(),
+  }),
+  views: z.number(),
+  userId: z.number(),
 })
 
-const postListSchema = z.array(postSchema)
+const postListSchema = z.object({
+  posts: z.array(postSchema),
+  total: z.number(),
+  skip: z.number(),
+  limit: z.number(),
+})
 
 export type Post = z.infer<typeof postSchema>
+export type PostList = z.infer<typeof postListSchema>
 
 export async function getPostList(params: {
   page: number
   pageSize: number
-}): Promise<Post[]> {
-  const start = (params.page - 1) * params.pageSize
+}): Promise<PostList> {
+  const skip = (params.page - 1) * params.pageSize
   const limit = params.pageSize
 
-  const { data } = await request.get<Post[]>(
-    `/posts?_start=${start}&_limit=${limit}`,
+  const { data } = await request.get<PostList>(
+    `/posts?limit=${limit}&skip=${skip}`,
     { responseSchema: postListSchema },
   )
 

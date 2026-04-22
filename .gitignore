@@ -8,6 +8,7 @@ node_modules
 .idea/
 *.log
 .rolldown
+.playwright-cli
 
 .env
 .env.local

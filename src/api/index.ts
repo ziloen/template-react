@@ -4,9 +4,8 @@ import { prettifyError } from 'zod'
 export * as API from './api'
 
 export const request = axios.create({
-  baseURL: 'https://jsonplaceholder.typicode.com',
-  // 30s timeout
-  timeout: 30_000,
+  baseURL: 'https://dummyjson.com',
+  timeout: 3 * 60 * 1000,
   adapter: 'fetch',
 })
 

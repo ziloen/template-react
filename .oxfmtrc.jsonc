@@ -8,6 +8,7 @@
   "ignorePatterns": [
     // Directories
     ".agents",
+    ".claude",
     ".github",
     ".vscode",
     "dist",
