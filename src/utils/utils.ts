@@ -89,3 +89,8 @@ export async function blobToDataURL(blob: Blob): Promise<string> {
   const mimeType = blob.type || 'application/octet-stream'
   return `data:${mimeType};base64,${base64}`
 }
+
+/*#__NO_SIDE_EFFECTS__*/
+export function base64ToArrayBuffer(base64: string): ArrayBuffer {
+  return Uint8Array.fromBase64(base64).buffer
+}

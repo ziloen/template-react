@@ -3,6 +3,7 @@
 import tailwindcss from '@tailwindcss/vite'
 import legacy from '@vitejs/plugin-legacy'
 import react from '@vitejs/plugin-react'
+import { playwright } from '@vitest/browser-playwright'
 import browserslist from 'browserslist'
 import { Features, browserslistToTargets } from 'lightningcss'
 import { execSync } from 'node:child_process'
@@ -166,6 +167,14 @@ export default defineConfig(({ command, mode }) => {
 
     experimental: {
       // renderBuiltUrl
+    },
+
+    test: {
+      browser: {
+        enabled: true,
+        provider: playwright(),
+        instances: [{ browser: 'chromium' }, { browser: 'firefox' }],
+      },
     },
   }
 })

@@ -7,6 +7,7 @@ describe('Counter', () => {
     const { getByText } = await render(<Counter initial={10} />)
     expect(getByText('10')).toBeDefined()
   })
+
   it('should be interactive', async () => {
     const { getByText } = await render(<Counter initial={0} />)
     expect(getByText('0')).toBeDefined()
