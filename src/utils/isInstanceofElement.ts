@@ -11,7 +11,7 @@
  * @example
  * ```ts
  * isInstanceofElement(event.target, HTMLElement) && event.target.focus()
- * isInstanceofElement(event.target, HTMLInputElement) && event.target.value // some value
+ * isInstanceofElement(event.target, HTMLInputElement) && event.target.value
  * ```
  */
 /*#__NO_SIDE_EFFECTS__*/
@@ -23,12 +23,18 @@ export function isInstanceofElement<T extends typeof Element>(
     return true
   }
 
-  const _element = element as Node | null | undefined
+  if (element === null || element === undefined) {
+    return false
+  }
+
+  if (!('ownerDocument' in element)) {
+    return false
+  }
 
   return Boolean(
-    _element?.ownerDocument?.defaultView &&
-    _element instanceof
-      _element.ownerDocument.defaultView[
+    element.ownerDocument?.defaultView &&
+    element instanceof
+      element.ownerDocument.defaultView[
         instance.name as keyof typeof globalThis
       ],
   )
