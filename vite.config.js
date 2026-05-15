@@ -1,4 +1,4 @@
-/// <reference types="vitest" />
+/// <reference types="vitest/config" />
 
 import tailwindcss from '@tailwindcss/vite'
 import legacy from '@vitejs/plugin-legacy'
@@ -170,6 +170,9 @@ export default defineConfig(({ command, mode }) => {
     },
 
     test: {
+      typecheck: {
+        enabled: true,
+      },
       browser: {
         enabled: true,
         provider: playwright(),
