@@ -36,28 +36,10 @@ export function useRelativeTime(
   languageRef.current = language
 
   useEffect(() => {
-    function getAbsDiffSeconds(): number {
-      const now = Date.now()
-      const ts =
-        typeof date === 'string'
-          ? new Date(date).getTime()
-          : typeof date === 'number'
-            ? date
-            : date.getTime()
-      return Math.abs(now - ts) / 1000
-    }
-
-    function getInterval(diffSeconds: number): number {
-      if (diffSeconds < 60) return 1_000 // every second
-      if (diffSeconds < 3_600) return 60_000 // every minute
-      if (diffSeconds < 86_400) return 3_600_000 // every hour
-      return 86_400_000 // every day
-    }
-
     let timerId: ReturnType<typeof setTimeout>
 
     function schedule() {
-      const diffSeconds = getAbsDiffSeconds()
+      const diffSeconds = getAbsDiffSeconds(date)
       const interval = getInterval(diffSeconds)
 
       timerId = setTimeout(() => {
@@ -84,4 +66,22 @@ export function useRelativeTime(
   }, [date, language])
 
   return relativeTime
+}
+
+function getAbsDiffSeconds(date: string | number | Date): number {
+  const now = Date.now()
+  const ts =
+    typeof date === 'string'
+      ? new Date(date).getTime()
+      : typeof date === 'number'
+        ? date
+        : date.getTime()
+  return Math.abs(now - ts) / 1000
+}
+
+function getInterval(diffSeconds: number): number {
+  if (diffSeconds < 60) return 1_000 // every second
+  if (diffSeconds < 3_600) return 60_000 // every minute
+  if (diffSeconds < 86_400) return 3_600_000 // every hour
+  return 86_400_000 // every day
 }

@@ -129,18 +129,10 @@ export default defineConfig(({ command, mode }) => {
       reportCompressedSize: false,
       minify: 'oxc',
       rolldownOptions: {
-        optimization: {
-          inlineConst: { mode: 'all', pass: 3 },
-        },
-        treeshake: {
-          manualPureFunctions: ['console.log', 'console.info'],
-        },
-        output: {
-          hashCharacters: 'hex',
-        },
-        experimental: {
-          lazyBarrel: true,
-        },
+        experimental: { lazyBarrel: true },
+        optimization: { inlineConst: { mode: 'all', pass: 3 } },
+        output: { hashCharacters: 'hex' },
+        treeshake: { manualPureFunctions: ['console.log', 'console.info'] },
       },
     },
 

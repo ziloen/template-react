@@ -161,7 +161,6 @@ function parseTemplate(
   text: string,
   elementData: Map<string, ReactElement>,
   fnData: Map<string, (children: ReactNode) => ReactNode>,
-  stringData: Record<string, string | number>,
 ): string | ReactElement {
   const result: ReactNode[] = []
   let lastIndex = 0
@@ -181,14 +180,14 @@ function parseTemplate(
     }
 
     if (tagName) {
-      // match <tagName>tagContent</tagName>
+      // match `<tagName>tagContent</tagName>`
       const render = fnData.get(tagName) ?? elementData.get(tagName)
 
       // recursively parse nested tag and variables
       // <b>bold and <i>italic</i></b>
       // <b>bold and {{variable}}</b>
       const parsedContent = tagContent
-        ? parseTemplate(tagContent, elementData, fnData, stringData)
+        ? parseTemplate(tagContent, elementData, fnData)
         : tagContent
 
       if (render) {
@@ -197,7 +196,7 @@ function parseTemplate(
         result.push(parsedContent)
       }
     } else if (variable) {
-      // match {{variable}}
+      // match `{{variable}}`
       const element = elementData.get(variable)
 
       result.push(element ?? fullMatch)
@@ -237,7 +236,7 @@ const voidElements = new Set([
 function getRendered(
   getter: ((children: ReactNode) => ReactNode) | ReactElement,
   children: ReactNode,
-) {
+): ReactNode {
   if (typeof getter === 'function') {
     return getter(children)
   }
@@ -319,12 +318,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
       }
     }
 
-    return parseTemplate(
-      translation.t(key, stringData),
-      elementData,
-      fnData,
-      stringData,
-    )
+    return parseTemplate(translation.t(key, stringData), elementData, fnData)
   } as CustomTFunction)
 
   const ctxValue = useMemo(() => {
