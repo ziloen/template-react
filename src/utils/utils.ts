@@ -3,6 +3,12 @@ import type { ComponentType } from 'react'
 import type { LoaderFunction, RouteObject } from 'react-router'
 import { twMerge } from 'tailwind-merge'
 
+export {
+  formatDuration,
+  formatLanguageName,
+  formatList,
+  formatRelativeTime,
+} from './intl'
 export { isInstanceofElement } from './isInstanceofElement'
 
 /*#__NO_SIDE_EFFECTS__*/
@@ -93,4 +99,18 @@ export async function blobToDataURL(blob: Blob): Promise<string> {
 /*#__NO_SIDE_EFFECTS__*/
 export function base64ToArrayBuffer(base64: string): ArrayBuffer {
   return Uint8Array.fromBase64(base64).buffer
+}
+
+/*#__NO_SIDE_EFFECTS__*/
+export function formatBytes(bytes: number): string {
+  const base = 1024
+  let n = 0
+  const labels = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB']
+
+  while (bytes > base && n < labels.length - 1) {
+    bytes /= base
+    n++
+  }
+
+  return `${bytes.toFixed(2)}${labels[n]!}`
 }

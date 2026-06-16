@@ -44,26 +44,24 @@ function enableTransitions() {
   )
 }
 
-function transitionTheme(fn: () => void, e: MouseEvent) {
+async function transitionTheme(fn: () => void, e: MouseEvent) {
   if (enableTransitions()) {
-    const transition = document.startViewTransition(async () => {
+    await document.startViewTransition(() => {
       fn()
 
       document.documentElement.style.setProperty('--mouse-x', `${e.x}px`)
       document.documentElement.style.setProperty('--mouse-y', `${e.y}px`)
-    })
+    }).ready
 
-    transition.ready.then(() => {
-      document.documentElement.animate(
-        { '--percentage-1': ['0%', '100%'] },
-        {
-          duration: 1_000,
-          easing: 'ease-in-out',
-          fill: 'forwards',
-          pseudoElement: '::view-transition-new(root)',
-        },
-      )
-    })
+    document.documentElement.animate(
+      { '--percentage-1': ['0%', '100%'] },
+      {
+        duration: 1_000,
+        easing: 'ease-in-out',
+        fill: 'forwards',
+        pseudoElement: '::view-transition-new(root)',
+      },
+    )
   } else {
     fn()
   }

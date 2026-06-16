@@ -14,7 +14,9 @@ import { useCallback, useRef, useState } from 'react'
  *   const next = getState() // 1
  * }
  */
-export function useGetState<T>(initialState: T | (() => T)) {
+export function useGetState<T>(
+  initialState: T | (() => T),
+): [state: T, setState: (value: T) => void, getState: () => T] {
   const [state, _setState] = useState<T>(initialState)
   const stateRef = useRef(state)
 
@@ -25,5 +27,5 @@ export function useGetState<T>(initialState: T | (() => T)) {
     _setState(value)
   }, [])
 
-  return [state, setState, getState] as const
+  return [state, setState, getState]
 }

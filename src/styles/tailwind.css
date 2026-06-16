@@ -25,6 +25,8 @@
   --color-surface-primary: light-dark(#ffffff, #121212);
   --color-surface-secondary: light-dark(--theme(--color-light-gray-200), --theme(--color-dark-gray-400));
 
+  --color-foreground-primary: light-dark(#121212, #ffffff);
+  --color-foreground-secondary: light-dark(--theme(--color-light-gray-300), --theme(--color-dark-gray-500));
 
   /* --color-[role]-[prominence]-[interaction] */
   --text-color-neutral-primary: light-dark(black, --theme(--color-light-gray-100));

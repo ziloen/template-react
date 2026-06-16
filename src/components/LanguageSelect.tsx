@@ -1,6 +1,6 @@
 import { Combobox, Tooltip } from '@base-ui/react'
 import { supportedLngs, useI18n } from '~/i18n'
-import { formatLanguageName } from '~/utils/intl'
+import { formatLanguageName } from '~/utils'
 
 export function LanguageSelect() {
   const { i18n, changeLanguage, fetchingLanguage } = useI18n()

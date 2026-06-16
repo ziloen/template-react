@@ -40,7 +40,7 @@ export function isInstanceofElement<T extends typeof Element | typeof Node>(
   )
 }
 
-function _type_test_() {
+function _type_test_(): void {
   const target = new EventTarget() as EventTarget | null
 
   if (isInstanceofElement(target, HTMLElement)) {

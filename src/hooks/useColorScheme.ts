@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 
 type ColorScheme = 'auto' | 'light' | 'dark'
 
-export function useColorScheme() {
+export function useColorScheme(): [ColorScheme, (scheme: ColorScheme) => void] {
   const [colorScheme, setColorScheme] = useState<ColorScheme>(() => {
     return (localStorage.getItem('color-scheme') || 'auto') as ColorScheme
   })
@@ -12,5 +12,5 @@ export function useColorScheme() {
     localStorage.setItem('color-scheme', scheme)
   }, [])
 
-  return [colorScheme, setColorSchemeAndStore] as const
+  return [colorScheme, setColorSchemeAndStore]
 }

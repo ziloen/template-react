@@ -1,5 +1,6 @@
+import { useEffect, useRef, useState } from 'react'
 import { useI18n } from '~/i18n'
-import { formatRelativeTime } from '~/utils/intl'
+import { formatRelativeTime } from '~/utils'
 
 /**
  * Returns a formatted relative time string that updates in real-time.

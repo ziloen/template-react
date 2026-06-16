@@ -11,11 +11,13 @@ import {
   createElement,
   isValidElement,
   use,
+  useMemo,
+  useRef,
+  useState,
 } from 'react'
 import { initReactI18next, useTranslation } from 'react-i18next'
 import type { LiteralUnion } from 'type-fest'
 import { useMemoizedFn } from './hooks'
-import { safe } from './utils'
 
 const i18nResourcesMap = mapKeys(
   import.meta.glob<string>(['./*.json', '!./*-tpl.json'], {
@@ -81,9 +83,11 @@ i18next.use(initReactI18next).init({
 })
 
 function resolveLanguage(lng: string) {
-  const [err, requested] = safe(() => new Intl.Locale(lng).maximize())
+  let requested: Intl.Locale
 
-  if (!requested) {
+  try {
+    requested = new Intl.Locale(lng).maximize()
+  } catch {
     return fallbackLng.default[0]
   }
 

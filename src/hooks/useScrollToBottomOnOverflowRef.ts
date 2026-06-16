@@ -41,6 +41,7 @@ export function useScrollToBottomOnOverflowRef(options?: {
       isOverflow = currentIsOverflow
     })
 
+    // FIXME: 如果元素设置了 scrollbar-gutter: stable，出现滚动条（已预留位置）并不会触发 ResizeObserver
     resizeObserver.observe(el)
 
     return () => {
