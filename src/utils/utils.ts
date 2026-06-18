@@ -25,15 +25,14 @@ function HydrateFallback() {
 
 export function globToRoutes(
   paths: Record<string, () => Promise<unknown>>,
-  base: string,
 ): RouteObject[] {
   return Object.entries(paths).map(([path, resolver]) => {
-    // `./path/to/route/concerts.$id.tsx` -> `concerts.$id`
-    const filePath = path.slice(base.length, -4)
+    // `./path/to/route/concerts.$id.tsx` -> `path/to/route/concerts.$id`
+    const filePath = path.slice(2, -4)
 
     const index = filePath.endsWith('_index')
 
-    // https://reactrouter.com/how-to/file-route-conventions#file-route-conventions
+    // https://reactrouter.com/how-to/file-route-conventions
     // TODO: Support layout "_layout.tsx"
     const normalizedPath = filePath
       // Index Route: `_index.tsx` -> `/`

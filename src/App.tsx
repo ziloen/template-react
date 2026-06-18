@@ -14,8 +14,9 @@ export const queryClient = new QueryClient({
 
 // TODO: Support eager routes
 export const routes = globToRoutes(
-  import.meta.glob('./pages/**/*.tsx'),
-  './pages/',
+  import.meta.glob(['./**/*.tsx', '!./**/*.test.tsx'], {
+    base: './pages/',
+  }),
 )
 
 export const router = createBrowserRouter(routes, { basename: '' })
