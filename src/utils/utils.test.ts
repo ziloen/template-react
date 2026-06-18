@@ -6,12 +6,12 @@ test('globToRoutes converts glob patterns to route paths correctly', () => {
   const resolver = () => Promise.resolve(exports)
 
   const paths = {
-    './pages/_index.tsx': resolver,
-    './pages/_layout.tsx': resolver,
-    './pages/_layout.page1.tsx': resolver,
+    './_index.tsx': resolver,
+    './_layout.tsx': resolver,
+    './_layout.page1.tsx': resolver,
   }
 
-  const routes = globToRoutes(paths, './pages/')
+  const routes = globToRoutes(paths)
 
   expect(routes)
 })
