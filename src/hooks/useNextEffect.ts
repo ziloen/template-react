@@ -19,19 +19,42 @@ import { useCallback, useEffect, useLayoutEffect, useRef } from 'react'
  * ```
  */
 export function useNextEffect() {
-  const callbacks = useRef<(() => void)[]>([])
+  const callbacksRef = useRef<(() => void)[]>([])
+  const mountedRef = useRef(true)
 
   useEffect(() => {
-    if (!callbacks.current.length) return
-    for (const cb of callbacks.current) {
+    return () => {
+      mountedRef.current = false
+
+      // Prevent stale callbacks after unmount
+      callbacksRef.current = []
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!callbacksRef.current.length) return
+
+    // Drain current batch so re-entrant calls go to next effect
+    const callbacks = callbacksRef.current
+    callbacksRef.current = []
+
+    for (const cb of callbacks) {
       cb()
     }
-    callbacks.current = []
   })
 
   return useCallback((callback?: () => void) => {
-    callback && callbacks.current.push(callback)
-    return new Promise<void>((resolve) => callbacks.current.push(resolve))
+    if (callback) {
+      callbacksRef.current.push(callback)
+    }
+
+    return new Promise<void>((resolve) => {
+      callbacksRef.current.push(() => {
+        if (mountedRef.current) {
+          resolve()
+        }
+      })
+    })
   }, [])
 }
 
@@ -39,18 +62,41 @@ export function useNextEffect() {
  * @see {@link useNextEffect}
  */
 export function useNextLayoutEffect() {
-  const callbacks = useRef<(() => void)[]>([])
+  const callbacksRef = useRef<(() => void)[]>([])
+  const mountedRef = useRef(true)
+
+  useEffect(() => {
+    return () => {
+      mountedRef.current = false
+
+      // Prevent stale callbacks after unmount
+      callbacksRef.current = []
+    }
+  }, [])
 
   useLayoutEffect(() => {
-    if (!callbacks.current.length) return
-    for (const cb of callbacks.current) {
+    if (!callbacksRef.current.length) return
+
+    // Drain current batch so re-entrant calls go to next effect
+    const callbacks = callbacksRef.current
+    callbacksRef.current = []
+
+    for (const cb of callbacks) {
       cb()
     }
-    callbacks.current = []
   })
 
   return useCallback((callback?: () => void) => {
-    callback && callbacks.current.push(callback)
-    return new Promise<void>((resolve) => callbacks.current.push(resolve))
+    if (callback) {
+      callbacksRef.current.push(callback)
+    }
+
+    return new Promise<void>((resolve) => {
+      callbacksRef.current.push(() => {
+        if (mountedRef.current) {
+          resolve()
+        }
+      })
+    })
   }, [])
 }
