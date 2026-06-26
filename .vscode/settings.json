@@ -27,6 +27,7 @@
   "js/ts.experimental.useTsgo": true,
   // https://devblogs.microsoft.com/typescript/announcing-typescript-5-6/#exclude-patterns-for-auto-imports
   "js/ts.preferences.autoImportSpecifierExcludeRegexes": [
+    "^@base-ui/react/internals",
     "^console$",
     "^motion/react-client$",
     "^motion/react-m$",

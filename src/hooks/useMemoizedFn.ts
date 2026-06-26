@@ -2,7 +2,7 @@
 import { useRef } from 'react'
 
 /**
- * Replace useCallback(fn, []). It always returns the same function reference, and the internal logic always calls the latest fn.
+ * Replace `useCallback`. It always returns the same function reference, and the internal logic always calls the latest fn.
  *
  * @example
  * const [count, setCount] = useState(0);
@@ -15,7 +15,7 @@ import { useRef } from 'react'
  * useEffect(() => {
  *   memoizedFn();
  * }, []);
- * // ^ No need to add memoizedFn to dependencies as it never changes
+ * // ^ Never add memoizedFn to dependencies as it never changes
  */
 export function useMemoizedFn<T extends (this: any, ...args: any[]) => any>(
   fn: T,

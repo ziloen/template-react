@@ -59,6 +59,8 @@ export function useNextEffect() {
 }
 
 /**
+ * useLayoutEffect version of {@link useNextEffect}.
+ * 
  * @see {@link useNextEffect}
  */
 export function useNextLayoutEffect() {

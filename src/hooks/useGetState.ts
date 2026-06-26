@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 /**
  * Provides a getState function alongside state and setState, allowing access to the latest state value.
@@ -20,12 +20,12 @@ export function useGetState<T>(
   const [state, _setState] = useState<T>(initialState)
   const stateRef = useRef(state)
 
-  const getState = useCallback(() => stateRef.current, [])
+  const getState = useRef(() => stateRef.current).current
 
-  const setState = useCallback((value: T) => {
+  const setState = useRef((value: T) => {
     stateRef.current = value
     _setState(value)
-  }, [])
+  }).current
 
   return [state, setState, getState]
 }
