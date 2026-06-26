@@ -1,5 +1,6 @@
 // https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useMemoizedFn/index.ts
 import { useRef } from 'react'
+import type { Equal, Expect } from '~/types'
 
 /**
  * Replace `useCallback`. It always returns the same function reference, and the internal logic always calls the latest fn.
@@ -17,7 +18,7 @@ import { useRef } from 'react'
  * }, []);
  * // ^ Never add memoizedFn to dependencies as it never changes
  */
-export function useMemoizedFn<T extends (this: any, ...args: any[]) => any>(
+export function useMemoizedFn<T extends (this: any, ...args: any[]) => unknown>(
   fn: T,
 ): T {
   const fnRef = useRef(fn)
@@ -28,10 +29,30 @@ export function useMemoizedFn<T extends (this: any, ...args: any[]) => any>(
   // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
   if (!memoizedFn.current) {
     memoizedFn.current = function (this, ...args) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       return fnRef.current.apply(this, args)
     } as T
   }
 
   return memoizedFn.current
+}
+
+function _type_test_() {
+  {
+    const voidFn = useMemoizedFn(() => {})
+    type _ = Expect<Equal<typeof voidFn, () => void>>
+  }
+
+  {
+    const fn = useMemoizedFn((a: number) => a)
+    type _ = Expect<Equal<typeof fn, (a: number) => number>>
+  }
+
+  {
+    const fnThis = useMemoizedFn(function (this: Event, a: number) {
+      return ''
+    })
+    type _ = Expect<Equal<typeof fnThis, (a: number) => string>>
+    // Equal doesn't support `this`
+    type __ = Expect<Equal<ThisParameterType<typeof fnThis>, Event>>
+  }
 }
