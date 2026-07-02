@@ -7,10 +7,10 @@ export function useColorScheme(): [ColorScheme, (scheme: ColorScheme) => void] {
     return (localStorage.getItem('color-scheme') || 'auto') as ColorScheme
   })
 
-  const setColorSchemeAndStore = useCallback((scheme: ColorScheme) => {
+  const setColorSchemeAndStore = useRef((scheme: ColorScheme) => {
     setColorScheme(scheme)
     localStorage.setItem('color-scheme', scheme)
-  }, [])
+  }).current
 
   return [colorScheme, setColorSchemeAndStore]
 }

@@ -1,5 +1,5 @@
 import type { RefCallback } from 'react'
-import { useCallback, useRef } from 'react'
+import { useRef } from 'react'
 
 /**
  * 当内容出现溢出时（之前未溢出，现在溢出），自动滚动到底部
@@ -17,7 +17,7 @@ export function useScrollToBottomOnOverflowRef(options?: {
   const optionsRef = useRef(options)
   optionsRef.current = options
 
-  return useCallback<RefCallback<Element>>((el) => {
+  return useRef((el: Element | null) => {
     if (!el) return
 
     let isOverflow: boolean | null = null
@@ -47,5 +47,5 @@ export function useScrollToBottomOnOverflowRef(options?: {
     return () => {
       resizeObserver.disconnect()
     }
-  }, [])
+  }).current
 }

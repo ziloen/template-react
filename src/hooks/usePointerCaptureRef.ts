@@ -1,6 +1,6 @@
 import type { RefCallback } from 'react'
+import { useRef } from 'react'
 import { useLatest } from './useLatest'
-import { useMemoizedFn } from './useMemoizedFn'
 
 type Position = {
   x: number
@@ -38,7 +38,7 @@ export function usePointerCaptureRef<T extends HTMLElement>(
 ): RefCallback<T> {
   const optionsRef = useLatest(options)
 
-  return useMemoizedFn((el: T | null) => {
+  return useRef((el: T | null) => {
     if (!el) return
 
     const ac = new AbortController()
@@ -67,7 +67,7 @@ export function usePointerCaptureRef<T extends HTMLElement>(
     return () => {
       ac.abort()
     }
-  })
+  }).current
 }
 
 export function trackPointerMove<T extends HTMLElement>(

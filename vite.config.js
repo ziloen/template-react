@@ -72,12 +72,6 @@ export default defineConfig(({ command, mode }) => {
             'motion/react': ['motion', 'AnimatePresence'],
           },
           {
-            from: 'clsx/lite',
-            imports: ['clsx'],
-            // Manually declare clsx in src/types/modules.d.ts for strict type checking clsx/lite
-            dtsDisabled: true,
-          },
-          {
             type: true,
             from: 'react',
             imports: [
