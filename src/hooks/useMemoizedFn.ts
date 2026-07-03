@@ -55,4 +55,20 @@ function _type_test_() {
     // Equal doesn't support `this`
     type __ = Expect<Equal<ThisParameterType<typeof fnThis>, Event>>
   }
+
+  {
+    const genericFn = <T extends Element>(options: {
+      getElement: () => T
+      onChange: (el: T) => void
+    }) => {}
+
+    // https://github.com/microsoft/TypeScript/issues/47599
+    // 必须显式声明泛型，否则 useMemoizedFn el 会被推导为 never
+    genericFn<HTMLElement>({
+      getElement: () => document.createElement('div'),
+      onChange: useMemoizedFn((el) => {
+        type _ = Expect<Equal<typeof el, HTMLElement>>
+      }),
+    })
+  }
 }
