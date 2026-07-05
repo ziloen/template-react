@@ -1,6 +1,5 @@
 import type { RefCallback } from 'react'
 import { useRef } from 'react'
-import { useLatest } from './useLatest'
 
 type Position = {
   x: number
@@ -36,7 +35,8 @@ type Options<T> = {
 export function usePointerCaptureRef<T extends HTMLElement>(
   options: Options<T>,
 ): RefCallback<T> {
-  const optionsRef = useLatest(options)
+  const optionsRef = useRef(options)
+  optionsRef.current = options
 
   return useRef((el: T | null) => {
     if (!el) return

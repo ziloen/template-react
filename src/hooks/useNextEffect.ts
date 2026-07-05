@@ -8,7 +8,7 @@ import { useEffect, useLayoutEffect, useRef } from 'react'
  * const nextEffect = useNextEffect()
  *
  * async function onClick() {
- *   setEditing(true)
+ *   setIsEditing(true)
  *   nextEffect(() => {
  *     inputRef.current?.focus()
  *   })

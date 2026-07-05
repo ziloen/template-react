@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 
 type ColorScheme = 'auto' | 'light' | 'dark'
 
