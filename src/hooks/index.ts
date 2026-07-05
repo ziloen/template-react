@@ -17,13 +17,22 @@ export { useRelativeTime } from './useRelativeTime'
  * ```
  */
 export function mergeRefs<T>(...refs: React.Ref<T>[]): React.RefCallback<T> {
+  // FIXME: runs on every render
   return function (instance: T | null) {
+    const cleanups: (() => void)[] = []
+
     for (const ref of refs) {
       if (typeof ref === 'function') {
-        ref(instance)
+        const cleanup = ref(instance)
+        cleanups.push(typeof cleanup === 'function' ? cleanup : () => ref(null))
       } else if (ref) {
         ref.current = instance
+        cleanups.push(() => (ref.current = null))
       }
+    }
+
+    return () => {
+      for (const cleanup of cleanups) cleanup()
     }
   }
 }
