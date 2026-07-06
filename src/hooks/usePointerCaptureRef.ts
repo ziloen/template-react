@@ -29,7 +29,7 @@ type Options<T> = {
    *
    * @default 'pointerdown'
    */
-  captureOn?: 'pointerdown' | 'pointermove'
+  captureOn?: 'pointerdown' | 'pointermove' | undefined
 }
 
 export function usePointerCaptureRef<T extends HTMLElement>(
@@ -77,10 +77,7 @@ export function trackPointerMove<T extends HTMLElement>(
     onEnd,
     signal,
     captureOn = 'pointerdown',
-  }: {
-    onMove?: Options<NoInfer<T>>['onMove']
-    onEnd?: Options<NoInfer<T>>['onEnd']
-    captureOn?: Options<NoInfer<T>>['captureOn']
+  }: Pick<Options<NoInfer<T>>, 'captureOn' | 'onMove' | 'onEnd'> & {
     signal?: AbortSignal
   },
 ): void {
