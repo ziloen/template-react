@@ -57,6 +57,7 @@ async function transitionTheme(fn: () => void, e: MouseEvent) {
       { '--percentage-1': ['0%', '100%'] },
       {
         duration: 1_000,
+        // easing: 'cubic-bezier(0.76, 0, 0.24, 1)',
         easing: 'ease-in-out',
         fill: 'forwards',
         pseudoElement: '::view-transition-new(root)',

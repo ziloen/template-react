@@ -46,6 +46,8 @@ export function usePointerCaptureRef<T extends HTMLElement>(
     el.addEventListener(
       'pointerdown',
       function (downEvent) {
+        if (!downEvent.isTrusted) return
+
         /** 取消捕获 pointer */
         if (optionsRef.current.onStart?.call(this as T, downEvent) === false) {
           return
@@ -101,6 +103,8 @@ export function trackPointerMove<T extends HTMLElement>(
   el.addEventListener(
     'pointermove',
     function (moveEvent) {
+      if (!moveEvent.isTrusted) return
+
       if (pointerId === null && captureOn === 'pointermove') {
         el.setPointerCapture((pointerId = moveEvent.pointerId))
       }
@@ -116,6 +120,8 @@ export function trackPointerMove<T extends HTMLElement>(
   )
 
   const release = function (this: EventTarget, event: PointerEvent) {
+    if (!event.isTrusted) return
+
     ac.abort()
 
     if (pointerId !== null && el.hasPointerCapture(pointerId)) {

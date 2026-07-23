@@ -38,8 +38,8 @@
     "^zod/locales",
     "^zod/v4/locales",
   ],
+  "js/ts.tsdk.path": "node_modules/typescript/lib",
   "oxc.enable.oxlint": false,
   "prettier.enable": true,
-  "tailwindCSS.experimental.configFile": "src/styles/tailwind.css",
-  "typescript.native-preview.tsdk": "node_modules\\@typescript\\native-preview"
+  "tailwindCSS.experimental.configFile": "src/styles/tailwind.css"
 }

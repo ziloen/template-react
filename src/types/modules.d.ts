@@ -34,7 +34,7 @@ declare module 'axios' {
 declare module 'react-router' {
   import type { Location } from 'react-router'
   // https://github.com/remix-run/react-router/issues/9358
-  declare function useLocation<S = unknown>(): Location<S | undefined>
+  function useLocation<S = unknown>(): Location<S | undefined>
 }
 
 // https://www.i18next.com/overview/typescript

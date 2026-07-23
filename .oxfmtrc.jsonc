@@ -17,12 +17,13 @@
     "**/*.css",
     "**/*.html",
     "**/*.json",
-    "!src/locales/*.json",
     "**/*.jsonc",
     "**/*.md",
     "**/*.scss",
     "**/*.vue",
     "**/*.yml",
+    // Project files
+    "!src/locales/*.json",
     "src/types/auto-imports.d.ts"
   ],
   "jsxSingleQuote": false,
