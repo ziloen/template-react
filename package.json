@@ -6,7 +6,7 @@
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "cross-env TIMING=10 eslint .",
+    "lint": "eslint .",
     "typecheck": "tsc -b --noEmit",
     "fmt": "oxfmt",
     "postinstall": "patch-package",
@@ -71,7 +71,10 @@
     "vitest-browser-react": "2.2.0"
   },
   "lint-staged": {
-    "*": "eslint",
+    "*.{js,jsx,ts,tsx}": [
+      "oxfmt --no-error-on-unmatched-pattern",
+      "eslint"
+    ],
     "src/locales/*.json": "prettier --write"
   },
   "overrides": {
