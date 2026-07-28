@@ -13,6 +13,7 @@ export const queryClient = new QueryClient({
 })
 
 // TODO: Support eager routes
+// TODO: Support meta (title, description, etc.)
 export const routes = globToRoutes(
   import.meta.glob(['./**/*.tsx', '!./**/*.test.tsx'], {
     base: './pages/',
