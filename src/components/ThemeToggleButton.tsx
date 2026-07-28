@@ -8,9 +8,8 @@ export function ThemeToggleButton() {
       return window.matchMedia('(prefers-color-scheme: dark)').matches
         ? 'dark'
         : 'light'
-    } else {
-      return colorScheme
     }
+    return colorScheme
   }, [colorScheme])
 
   return (
