@@ -30,7 +30,7 @@ jobs:
           cache: 'npm'
 
       - name: Install
-        run: npm ci --audit=false
+        run: npm ci --prefer-offline --no-audit --fund=false
 
       - name: Build
         run: node --run build
@@ -38,7 +38,9 @@ jobs:
       - name: Extract Playwright version
         id: playwright-version
         shell: bash
-        run: echo "version=$(jq -r '.devDependencies.@vitest/browser-playwright' package.json)" >> $GITHUB_OUTPUT
+        run:  |
+          version=$(node -p "require('playwright/package.json').version")
+          echo "version=$version" >> "$GITHUB_OUTPUT"
 
       - name: Cache Playwright browsers
         id: playwright-cache
