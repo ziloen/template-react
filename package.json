@@ -22,7 +22,7 @@
     "es-toolkit": "1.50.0",
     "i18next": "26.3.6",
     "its-fine": "2.0.0",
-    "motion": "12.42.2",
+    "motion": "12.43.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "react-i18next": "17.0.11",
@@ -33,7 +33,7 @@
     "zustand": "5.0.14"
   },
   "devDependencies": {
-    "@iconify/json": "2.2.506",
+    "@iconify/json": "2.2.507",
     "@svgr/core": "8.1.0",
     "@svgr/plugin-jsx": "8.1.0",
     "@tailwindcss/vite": "4.3.3",
