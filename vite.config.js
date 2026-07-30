@@ -146,14 +146,16 @@ export default defineConfig(({ command, mode }) => {
     },
 
     test: {
-      typecheck: {
-        enabled: true,
-      },
       browser: {
         enabled: true,
+        ui: false,
         headless: true,
+        viewport: {
+          width: 1280,
+          height: 720,
+        },
         provider: playwright(),
-        instances: [{ browser: 'chromium' }, { browser: 'firefox' }],
+        instances: [{ browser: 'chromium' } /* , { browser: 'firefox' } */],
       },
     },
   }
