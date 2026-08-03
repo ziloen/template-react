@@ -19,10 +19,6 @@
       }
     }
   ],
-  "plugins": [
-    "prettier-plugin-organize-imports",
-    "prettier-plugin-tailwindcss"
-  ],
   "printWidth": 80,
   "quoteProps": "as-needed",
   "semi": false,
