@@ -9,7 +9,6 @@ import browserslist from 'browserslist'
 import { Features, browserslistToTargets } from 'lightningcss'
 import { execSync } from 'node:child_process'
 import { resolve as r } from 'node:path'
-import AutoImport from 'unplugin-auto-import/vite'
 import Icons from 'unplugin-icons/vite'
 import { defineConfig } from 'vite'
 
@@ -51,41 +50,6 @@ export default defineConfig(({ command, mode }) => {
 
       // https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react
       react(),
-
-      // https://github.com/unplugin/unplugin-auto-import
-      AutoImport({
-        imports: [
-          {
-            react: [
-              'Fragment',
-              'Suspense',
-              'useCallback',
-              'useEffect',
-              'useId',
-              'useImperativeHandle',
-              'useInsertionEffect',
-              'useLayoutEffect',
-              'useMemo',
-              'useRef',
-              'useState',
-              'useSyncExternalStore',
-            ],
-            'react-dom': ['createPortal'],
-            'motion/react': ['motion', 'AnimatePresence'],
-          },
-          {
-            type: true,
-            from: 'react',
-            imports: [
-              'ComponentProps',
-              'ReactNode',
-              'RefCallback',
-              'RefObject',
-            ],
-          },
-        ],
-        dts: 'src/types/auto-imports.d.ts',
-      }),
 
       // https://github.com/unplugin/unplugin-icons
       Icons({
