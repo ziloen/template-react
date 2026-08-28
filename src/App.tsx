@@ -1,26 +1,9 @@
 import { Toast } from '@base-ui/react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { createBrowserRouter, RouterProvider } from 'react-router'
-import { globToRoutes } from '~/utils'
+import { QueryClientProvider } from '@tanstack/react-query'
+import { RouterProvider } from '@tanstack/react-router'
 import CarbonClose from '~icons/carbon/close'
 import { I18nProvider } from './i18n'
-
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: { retry: false },
-    mutations: { retry: false },
-  },
-})
-
-// TODO: Support eager routes
-// TODO: Support meta (title, description, etc.)
-export const routes = globToRoutes(
-  import.meta.glob(['./**/*.tsx', '!./**/*.test.tsx'], {
-    base: './pages/',
-  }),
-)
-
-export const router = createBrowserRouter(routes, { basename: '' })
+import { queryClient, router } from './router'
 
 function ToastList() {
   const { toasts } = Toast.useToastManager()

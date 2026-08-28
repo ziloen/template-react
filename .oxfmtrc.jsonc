@@ -24,6 +24,7 @@
     "**/*.yml",
     // Project files
     "!src/locales/*.json",
+    "src/routeTree.gen.ts",
     "src/types/auto-imports.d.ts"
   ],
   "jsxSingleQuote": false,

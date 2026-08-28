@@ -1,3 +1,5 @@
+import { createFileRoute, useNavigate, useRouter } from '@tanstack/react-router'
+import { useMemo, useRef } from 'react'
 import { Counter } from '~/components/Counter'
 import { LanguageSelect } from '~/components/LanguageSelect'
 import { ThemeToggleButton } from '~/components/ThemeToggleButton'
@@ -5,15 +7,30 @@ import { useRelativeTime } from '~/hooks'
 import { useI18n } from '~/i18n'
 import { formatList } from '~/utils/intl'
 
-export default function Index() {
+export const Route = createFileRoute('/')({
+  component: Index,
+})
+
+function Index() {
   const name = useRef<HTMLInputElement>(null)
   const { t } = useI18n()
   const navigate = useNavigate()
+  const router = useRouter()
 
   function go() {
     if (!name.current) return
 
-    navigate(`/hi/${encodeURIComponent(name.current.value)}`, {
+    if (!name.current.value) {
+      const basepath = router.basepath === '/' ? '' : router.basepath
+      router.history.push(`${basepath}/hi/`, { from: '/' })
+      return
+    }
+
+    navigate({
+      to: '/hi/$name',
+      params: {
+        name: name.current.value,
+      },
       state: {
         from: '/',
       },

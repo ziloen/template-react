@@ -1,6 +1,7 @@
 /// <reference types="vitest/config" />
 
 import tailwindcss from '@tailwindcss/vite'
+import { tanstackRouter } from '@tanstack/router-plugin/vite'
 import legacy from '@vitejs/plugin-legacy'
 import react from '@vitejs/plugin-react'
 import { playwright } from '@vitest/browser-playwright'
@@ -40,6 +41,14 @@ export default defineConfig(({ command, mode }) => {
     },
 
     plugins: [
+      // https://tanstack.com/router/latest/docs/framework/react/routing/file-based-routing
+      tanstackRouter({
+        target: 'react',
+        routesDirectory: './src/pages',
+        generatedRouteTree: './src/routeTree.gen.ts',
+        autoCodeSplitting: true,
+      }),
+
       // https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react
       react(),
 
@@ -62,13 +71,6 @@ export default defineConfig(({ command, mode }) => {
               'useSyncExternalStore',
             ],
             'react-dom': ['createPortal'],
-            'react-router': [
-              'useLocation',
-              'useNavigate',
-              'useParams',
-              'useRoutes',
-              'useSearchParams',
-            ],
             'motion/react': ['motion', 'AnimatePresence'],
           },
           {

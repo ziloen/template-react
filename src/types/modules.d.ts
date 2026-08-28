@@ -31,10 +31,10 @@ declare module 'axios' {
   }
 }
 
-declare module 'react-router' {
-  import type { Location } from 'react-router'
-  // https://github.com/remix-run/react-router/issues/9358
-  function useLocation<S = unknown>(): Location<S | undefined>
+declare module '@tanstack/history' {
+  interface HistoryState {
+    from?: '/'
+  }
 }
 
 // https://www.i18next.com/overview/typescript

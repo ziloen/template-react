@@ -1,4 +1,10 @@
-export default function SigninPage() {
+import { createFileRoute } from '@tanstack/react-router'
+
+export const Route = createFileRoute('/signin')({
+  component: SigninPage,
+})
+
+function SigninPage() {
   return (
     <div>
       <h1>Signin</h1>
