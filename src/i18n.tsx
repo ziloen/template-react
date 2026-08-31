@@ -184,21 +184,7 @@ function parseTemplate(
     }
 
     if (tagName) {
-      // match `<tagName>tagContent</tagName>`
-      const render = fnData.get(tagName) ?? elementData.get(tagName)
-
-      // recursively parse nested tag and variables
-      // <b>bold and <i>italic</i></b>
-      // <b>bold and {{variable}}</b>
-      const parsedContent = tagContent
-        ? parseTemplate(tagContent, elementData, fnData)
-        : tagContent
-
-      if (render) {
-        result.push(getRendered(render, parsedContent))
-      } else {
-        result.push(parsedContent)
-      }
+      result.push(renderTagMatch(tagName, tagContent, elementData, fnData))
     } else if (variable) {
       // match `{{variable}}`
       const element = elementData.get(variable)
@@ -234,21 +220,32 @@ const voidElements = new Set([
   'wbr',
 ])
 
-/**
- * get content from function or element
- */
-function getRendered(
-  getter: ((children: ReactNode) => ReactNode) | ReactElement,
-  children: ReactNode,
+function renderTagMatch(
+  tagName: string,
+  tagContent: string | undefined,
+  elementData: Map<string, ReactElement>,
+  fnData: Map<string, (children: ReactNode) => ReactNode>,
 ): ReactNode {
-  if (typeof getter === 'function') {
-    return getter(children)
+  // match `<tagName>tagContent</tagName>`
+  const render = fnData.get(tagName) ?? elementData.get(tagName)
+
+  // recursively parse nested tag and variables
+  // <b>bold and <i>italic</i></b>
+  // <b>bold and {{variable}}</b>
+  const parsedContent = tagContent
+    ? parseTemplate(tagContent, elementData, fnData)
+    : tagContent
+
+  if (!render) return parsedContent
+
+  if (typeof render === 'function') {
+    return render(parsedContent)
   }
 
   const isVoid =
-    typeof getter.type === 'string' && voidElements.has(getter.type)
+    typeof render.type === 'string' && voidElements.has(render.type)
 
-  return cloneElement(getter, undefined, isVoid ? undefined : children)
+  return cloneElement(render, undefined, isVoid ? undefined : parsedContent)
 }
 
 const I18nContext = createContext<
