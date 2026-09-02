@@ -17,7 +17,7 @@ import {
 } from 'react'
 import { initReactI18next, useTranslation } from 'react-i18next'
 import type { LiteralUnion } from 'type-fest'
-import { useMemoizedFn } from './hooks'
+import { useMemoizedFn } from '~/hooks'
 
 const i18nResourcesMap = mapKeys(
   import.meta.glob<string>(['./*.json', '!./*-tpl.json'], {
@@ -184,12 +184,11 @@ function parseTemplate(
     }
 
     if (tagName) {
+      // match `<tagName>tagContent</tagName>`
       result.push(renderTagMatch(tagName, tagContent, elementData, fnData))
     } else if (variable) {
       // match `{{variable}}`
-      const element = elementData.get(variable)
-
-      result.push(element ?? fullMatch)
+      result.push(elementData.get(variable) ?? fullMatch)
     }
   }
 
@@ -226,7 +225,6 @@ function renderTagMatch(
   elementData: Map<string, ReactElement>,
   fnData: Map<string, (children: ReactNode) => ReactNode>,
 ): ReactNode {
-  // match `<tagName>tagContent</tagName>`
   const render = fnData.get(tagName) ?? elementData.get(tagName)
 
   // recursively parse nested tag and variables
