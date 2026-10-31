@@ -20,7 +20,7 @@ import type { LiteralUnion } from 'type-fest'
 import { useMemoizedFn } from '~/hooks'
 
 const i18nResourcesMap = mapKeys(
-  import.meta.glob<string>(['./*.json', '!./*-tpl.json'], {
+  import.meta.glob<string>('./*.json', {
     base: './locales/',
     import: 'default',
     query: '?url',
